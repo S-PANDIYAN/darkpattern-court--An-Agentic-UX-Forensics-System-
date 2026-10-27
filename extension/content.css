@@ -1,0 +1,25 @@
+/* DarkShield — Content Script Styles */
+
+@keyframes darkshieldFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.darkshield-flagged {
+  transition: outline 0.3s ease, outline-offset 0.3s ease;
+}
+
+.darkshield-flagged:hover {
+  outline-width: 4px !important;
+  outline-offset: 4px !important;
+}
+
+.darkshield-badge {
+  animation: darkshieldFadeIn 0.3s ease forwards;
+}

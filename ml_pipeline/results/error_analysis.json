@@ -1,0 +1,148 @@
+{
+  "total_test": 419,
+  "total_errors": 38,
+  "error_rate": 0.0907,
+  "sample_errors": [
+    {
+      "text": "Ketolent subscriptions have no long term contracts. Pause cancel or change at any time. Want to swap Vanilla for Chocolate or set up to renew every 3 weeks? No problem! Send us an email to help@ketole",
+      "true_label": "Roach Motel",
+      "predicted_label": "Benign",
+      "confidence": 0.981,
+      "true_prob": 0.001
+    },
+    {
+      "text": "Don't miss out! We've sold 38 in the last few days.",
+      "true_label": "Disguised Ads",
+      "predicted_label": "Urgency or Scarcity",
+      "confidence": 0.696,
+      "true_prob": 0.191
+    },
+    {
+      "text": "Your first payment will be due on the day of your purchase.*",
+      "true_label": "Benign",
+      "predicted_label": "Confirmshaming",
+      "confidence": 0.702,
+      "true_prob": 0.03
+    },
+    {
+      "text": "You've reached the maximum number of free articles this month. Subscribe to read more",
+      "true_label": "Roach Motel",
+      "predicted_label": "Benign",
+      "confidence": 0.988,
+      "true_prob": 0.0
+    },
+    {
+      "text": "Don't hesitate any longer!",
+      "true_label": "Benign",
+      "predicted_label": "Misdirection",
+      "confidence": 0.995,
+      "true_prob": 0.001
+    },
+    {
+      "text": "Pay With:",
+      "true_label": "Benign",
+      "predicted_label": "Misdirection",
+      "confidence": 0.602,
+      "true_prob": 0.383
+    },
+    {
+      "text": "Limited-time offer extended with every purchase",
+      "true_label": "Misdirection",
+      "predicted_label": "Urgency or Scarcity",
+      "confidence": 0.989,
+      "true_prob": 0.005
+    },
+    {
+      "text": " GeekVape Pursue a Healthy Vaping Experience ",
+      "true_label": "Benign",
+      "predicted_label": "Misdirection",
+      "confidence": 0.678,
+      "true_prob": 0.252
+    },
+    {
+      "text": "Earn FanCash on all purchases!",
+      "true_label": "Benign",
+      "predicted_label": "Misdirection",
+      "confidence": 0.986,
+      "true_prob": 0.002
+    },
+    {
+      "text": "Have been using the product for last 5 days now and we have no complaints as of now",
+      "true_label": "Benign",
+      "predicted_label": "Disguised Ads",
+      "confidence": 0.886,
+      "true_prob": 0.021
+    },
+    {
+      "text": "Purchase protection added",
+      "true_label": "Hidden Costs",
+      "predicted_label": "Benign",
+      "confidence": 0.743,
+      "true_prob": 0.047
+    },
+    {
+      "text": "The product you requested is not available in the selected country",
+      "true_label": "Benign",
+      "predicted_label": "Disguised Ads",
+      "confidence": 0.488,
+      "true_prob": 0.326
+    },
+    {
+      "text": "Take advantage of flexible payment options and enjoy your purchase now",
+      "true_label": "Benign",
+      "predicted_label": "Trick Questions",
+      "confidence": 0.938,
+      "true_prob": 0.005
+    },
+    {
+      "text": "Personalize your doll",
+      "true_label": "Misdirection",
+      "predicted_label": "Benign",
+      "confidence": 0.988,
+      "true_prob": 0.008
+    },
+    {
+      "text": "LOGIN/REGISTER",
+      "true_label": "Misdirection",
+      "predicted_label": "Benign",
+      "confidence": 0.997,
+      "true_prob": 0.001
+    },
+    {
+      "text": "Check out from our hotel before 11:00 AM",
+      "true_label": "Benign",
+      "predicted_label": "Urgency or Scarcity",
+      "confidence": 0.961,
+      "true_prob": 0.007
+    },
+    {
+      "text": "So don\u2019t defer because Shaitaan is a must-watch as it is one of the best movies of 2024.",
+      "true_label": "Benign",
+      "predicted_label": "Misdirection",
+      "confidence": 0.859,
+      "true_prob": 0.107
+    },
+    {
+      "text": "This setting cant be changed Its for your own safety",
+      "true_label": "Roach Motel",
+      "predicted_label": "Benign",
+      "confidence": 0.996,
+      "true_prob": 0.0
+    },
+    {
+      "text": "Check in to our hotel after 2:00 PM",
+      "true_label": "Benign",
+      "predicted_label": "Urgency or Scarcity",
+      "confidence": 0.81,
+      "true_prob": 0.017
+    },
+    {
+      "text": "A - HRTC operates around 3158 buses operating across 125 depots and on average 6.05 lacks Kilometer per day.:",
+      "true_label": "Misdirection",
+      "predicted_label": "Benign",
+      "confidence": 0.996,
+      "true_prob": 0.001
+    }
+  ],
+  "error_pattern_summary": "Common error patterns: (1) Short ambiguous text like product names being misclassified between Benign and other categories, (2) Urgency/Scarcity and Hidden Costs being confused when text mentions both time pressure and pricing, (3) Confirmshaming and Misdirection overlap when text uses guilt-laden but redirecting language."
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DarkPattern Court — Forensic Details</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="panel-container">
+    <!-- Header -->
+    <div class="panel-header">
+      <div class="header-top">
+        <div class="logo-row">
+          <span class="logo-icon">⚖️</span>
+          <h1>DarkPattern Court</h1>
+        </div>
+        <button class="refresh-btn" id="refreshBtn" title="Refresh forensic evidence">🔄</button>
+      </div>
+      <p class="page-url" id="pageUrl">Auditing active tab...</p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-item">
+        <span class="stat-value" id="totalDetections">0</span>
+        <span class="stat-label">Deceptions</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="totalChunks">0</span>
+        <span class="stat-label">DOM Nodes</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="scanTime">—</span>
+        <span class="stat-label">Latency</span>
+      </div>
+    </div>
+
+    <!-- Detection List -->
+    <div class="detection-list" id="detectionList">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">⚖️</div>
+        <p>No audit results yet</p>
+        <p class="empty-hint">Open the extension popup and click "Audit Live Page"</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="panel-footer">
+      <p>⚖️ <strong>DarkPattern Court</strong> · AI UX Forensics</p>
+      <p class="footer-link">Offline DistilBERT · Indian CCPA Guidelines 2023</p>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

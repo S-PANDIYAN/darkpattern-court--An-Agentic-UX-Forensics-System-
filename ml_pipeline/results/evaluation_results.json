@@ -1,0 +1,55 @@
+{
+  "model": "DistilBERT (fine-tuned)",
+  "test_macro_f1": 0.8389,
+  "test_weighted_f1": 0.9082,
+  "per_class_metrics": {
+    "Benign": {
+      "f1": 0.9235,
+      "precision": 0.935,
+      "recall": 0.9122,
+      "support": 205.0
+    },
+    "Urgency or Scarcity": {
+      "f1": 0.96,
+      "precision": 0.9231,
+      "recall": 1.0,
+      "support": 84.0
+    },
+    "Disguised Ads": {
+      "f1": 0.9495,
+      "precision": 0.9592,
+      "recall": 0.94,
+      "support": 50.0
+    },
+    "Misdirection": {
+      "f1": 0.7324,
+      "precision": 0.7027,
+      "recall": 0.7647,
+      "support": 34.0
+    },
+    "Confirmshaming": {
+      "f1": 0.9583,
+      "precision": 0.9583,
+      "recall": 0.9583,
+      "support": 24.0
+    },
+    "Roach Motel": {
+      "f1": 0.6316,
+      "precision": 0.6667,
+      "recall": 0.6,
+      "support": 10.0
+    },
+    "Trick Questions": {
+      "f1": 0.8889,
+      "precision": 0.8,
+      "recall": 1.0,
+      "support": 4.0
+    },
+    "Hidden Costs": {
+      "f1": 0.6667,
+      "precision": 1.0,
+      "recall": 0.5,
+      "support": 8.0
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "total_rows": 2888,
+  "train_rows": 2021,
+  "val_rows": 433,
+  "test_rows": 434,
+  "labels": [
+    "Benign",
+    "Urgency or Scarcity",
+    "Disguised Ads",
+    "Misdirection",
+    "Confirmshaming",
+    "Roach Motel",
+    "Trick Questions",
+    "Hidden Costs"
+  ],
+  "label_counts": {
+    "Benign": 1463,
+    "Urgency or Scarcity": 560,
+    "Disguised Ads": 334,
+    "Misdirection": 226,
+    "Confirmshaming": 156,
+    "Roach Motel": 62,
+    "Trick Questions": 30,
+    "Hidden Costs": 57
+  }
+}

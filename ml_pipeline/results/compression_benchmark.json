@@ -1,0 +1,18 @@
+{
+  "pytorch": {
+    "size_mb": 255.4,
+    "speed_ms": 51.9,
+    "macro_f1": 0.8389
+  },
+  "onnx": {
+    "size_mb": 0.6,
+    "speed_ms": 38.8,
+    "macro_f1": 0.8389
+  },
+  "quantized": {
+    "size_mb": 64.3,
+    "speed_ms": 23.4,
+    "macro_f1": 0.8186
+  },
+  "estimated_page_time_ms": 469.0
+}

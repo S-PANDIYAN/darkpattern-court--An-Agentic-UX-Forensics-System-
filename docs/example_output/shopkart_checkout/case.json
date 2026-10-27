@@ -1,0 +1,1676 @@
+{
+ "id": "261006-e6d02",
+ "url": "http://localhost:8000/samples/shop/product.html",
+ "goals": [
+  "checkout"
+ ],
+ "max_depth": 6,
+ "beam_width": 2,
+ "branching": 3,
+ "created_at": "2026-10-06T13:26:51.091254+00:00",
+ "status": "complete",
+ "started_at": "2026-10-06T13:26:51.091655+00:00",
+ "log": [
+  "13:26:55 Simulating user goal: Buy the product (minimal purchase)",
+  "13:27:03 [checkout] root: Noise-Cancelling Headphones \u2014 ShopKart",
+  "13:27:09 [checkout] d1 'Add to cart' \u2192 Your Cart \u2014 ShopKart (v=10.0)",
+  "13:27:14 [checkout] d1 'Buy now' \u2192 Your Cart \u2014 ShopKart (v=9.0)",
+  "13:27:18 [checkout] d1 'Cart' \u2192 Your Cart \u2014 ShopKart (v=3.0)",
+  "13:27:25 [checkout] d2 'Proceed to checkout' \u2192 Checkout \u2014 ShopKart (v=20.0)",
+  "13:27:30 [checkout] d2 'Download app' \u2192 Your Cart \u2014 ShopKart (v=10.5)",
+  "13:27:35 [checkout] d2 'Maybe later' \u2192 Your Cart \u2014 ShopKart (v=10.5)",
+  "13:27:42 [checkout] d2 'Proceed to checkout' \u2192 Checkout \u2014 ShopKart (v=19.0)",
+  "13:27:47 [checkout] d2 'Download app' \u2192 Your Cart \u2014 ShopKart (v=9.5)",
+  "13:27:52 [checkout] d2 'Maybe later' \u2192 Your Cart \u2014 ShopKart (v=9.5)",
+  "13:28:01 [checkout] d3 'Place order' \u2192 Order confirmed \u2014 ShopKart (v=130.0, GOAL)",
+  "13:28:09 [checkout] d3 'Place order' \u2192 Order confirmed \u2014 ShopKart (v=129.0, GOAL)",
+  "13:28:09 Goal 'Buy the product (minimal purchase)': reached in 3 clicks; 12 states explored",
+  "13:28:10 Verdict: GUILTY \u2014 Basket Sneaking + Subscription Trap / Forced Continuity + Drip Pricing / Hidden Fees + False Urgency (score 100)",
+  "13:28:11 Reports written (report.html, report.pdf)"
+ ],
+ "capabilities": {
+  "ocr": false,
+  "vision_llm": false
+ },
+ "findings": [
+  {
+   "pattern": "false_urgency",
+   "description": "Time-pressure messaging found and the countdown resets on reload \u2014 the deadline is fake.",
+   "confidence": 0.95,
+   "severity": 0.6,
+   "evidence": [
+    "Urgency claim: \"\u26a1 Deal ends in 09:59 \u2014 hurry!\"",
+    "Forensic reload test: countdown read 598s, after 2.0s + reload it read 599s (timer restarted instead of continuing)."
+   ],
+   "source": "temporal",
+   "node_id": "che-675f5c",
+   "step": 0,
+   "url": "http://localhost:8000/samples/shop/product.html",
+   "bbox": {
+    "x": 584,
+    "y": 255,
+    "w": 508,
+    "h": 19
+   },
+   "exhibit": "exhibits/E01.png",
+   "id": "E01"
+  },
+  {
+   "pattern": "fake_scarcity",
+   "description": "Low-stock / high-demand claim used as pressure.",
+   "confidence": 0.85,
+   "severity": 0.45,
+   "evidence": [
+    "Scarcity claim: \"Only 4 left in stock!\"",
+    "Reload test: ['4 left', '31 people'] \u2192 ['2 left', '24 people'] (values change randomly)."
+   ],
+   "source": "dom",
+   "node_id": "che-675f5c",
+   "step": 0,
+   "url": "http://localhost:8000/samples/shop/product.html",
+   "bbox": {
+    "x": 584,
+    "y": 290,
+    "w": 508,
+    "h": 18
+   },
+   "exhibit": "exhibits/E02.png",
+   "id": "E02"
+  },
+  {
+   "pattern": "fake_social_proof",
+   "description": "Activity / popularity notification that appears fabricated.",
+   "confidence": 0.88,
+   "severity": 0.4,
+   "evidence": [
+    "Activity message: \"\ud83d\udc40 31 people are viewing this right now\"",
+    "Reload test: ['4 left', '31 people'] \u2192 ['2 left', '24 people'] (numbers regenerate on every load)."
+   ],
+   "source": "dom",
+   "node_id": "che-675f5c",
+   "step": 0,
+   "url": "http://localhost:8000/samples/shop/product.html",
+   "bbox": {
+    "x": 584,
+    "y": 324,
+    "w": 508,
+    "h": 19
+   },
+   "exhibit": "exhibits/E03.png",
+   "id": "E03"
+  },
+  {
+   "pattern": "confirmshaming",
+   "description": "Decline option is worded to shame the user.",
+   "confidence": 0.85,
+   "severity": 0.5,
+   "evidence": [
+    "Decline control reads: \"No thanks, I don't like saving money\""
+   ],
+   "source": "dom",
+   "node_id": "che-675f5c",
+   "step": 0,
+   "url": "http://localhost:8000/samples/shop/product.html",
+   "bbox": {
+    "x": 542,
+    "y": 514,
+    "w": 196,
+    "h": 18
+   },
+   "exhibit": "exhibits/E04.png",
+   "id": "E04"
+  },
+  {
+   "pattern": "nagging",
+   "description": "A promotional modal interrupts the task.",
+   "confidence": 0.5,
+   "severity": 0.3,
+   "evidence": [
+    "Overlay covering 100% of the viewport: \"Wait! Get 10% off \ud83c\udf81 Subscribe to our newsletter and get 10% off your first order. Subscribe No than\u2026\""
+   ],
+   "source": "dom",
+   "node_id": "che-675f5c",
+   "step": 0,
+   "url": "http://localhost:8000/samples/shop/product.html",
+   "bbox": {
+    "x": 0,
+    "y": 0,
+    "w": 1280,
+    "h": 800
+   },
+   "exhibit": "exhibits/E05.png",
+   "id": "E05"
+  },
+  {
+   "pattern": "false_urgency",
+   "description": "Time-pressure messaging found.",
+   "confidence": 0.55,
+   "severity": 0.6,
+   "evidence": [
+    "Urgency claim: \"Download our app for an extra 5% off. Offer valid today only!\""
+   ],
+   "source": "dom",
+   "node_id": "che-e233b0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": {
+    "x": 440,
+    "y": 363,
+    "w": 400,
+    "h": 36
+   },
+   "exhibit": "exhibits/E06.png",
+   "id": "E06"
+  },
+  {
+   "pattern": "basket_sneaking",
+   "description": "A paid extra is pre-selected and will be charged unless the user notices and removes it.",
+   "confidence": 0.9,
+   "severity": 0.8,
+   "evidence": [
+    "Pre-checked paid option: \"Add 1-year Accidental Damage Protection (+\u20b9399)\""
+   ],
+   "source": "dom",
+   "node_id": "che-e233b0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": {
+    "x": 213,
+    "y": 239,
+    "w": 13,
+    "h": 13
+   },
+   "exhibit": "exhibits/E07.png",
+   "id": "E07"
+  },
+  {
+   "pattern": "basket_sneaking",
+   "description": "A paid extra is pre-selected and will be charged unless the user notices and removes it.",
+   "confidence": 0.9,
+   "severity": 0.8,
+   "evidence": [
+    "Pre-checked paid option: \"Donate \u20b920 to Plant-a-Tree Foundation\""
+   ],
+   "source": "dom",
+   "node_id": "che-e233b0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": {
+    "x": 213,
+    "y": 277,
+    "w": 13,
+    "h": 13
+   },
+   "exhibit": "exhibits/E08.png",
+   "id": "E08"
+  },
+  {
+   "pattern": "hidden_information",
+   "description": "Material terms are displayed in fine print / low-contrast text.",
+   "confidence": 0.9,
+   "severity": 0.65,
+   "evidence": [
+    "Material term: \"Free for 30 days, then \u20b9299/month. Membership auto-renews and you will be charged automatically unless you cancel.\"",
+    "Font size 10px, contrast 1.75:1"
+   ],
+   "source": "dom",
+   "node_id": "che-e233b0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": {
+    "x": 209,
+    "y": 336,
+    "w": 526,
+    "h": 11
+   },
+   "exhibit": "exhibits/E09.png",
+   "id": "E09"
+  },
+  {
+   "pattern": "forced_continuity",
+   "description": "Free trial converts to a paid recurring plan and the renewal terms are hidden.",
+   "confidence": 0.9,
+   "severity": 0.8,
+   "evidence": [
+    "Offer: \"Start ShopKart Plus free trial (fast delivery)\"",
+    "Renewal disclosure only in fine print: \"Free for 30 days, then \u20b9299/month. Membership auto-renews and you will be charged automatically unless you cancel.\" (10px)"
+   ],
+   "source": "dom",
+   "node_id": "che-e233b0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": {
+    "x": 209,
+    "y": 336,
+    "w": 526,
+    "h": 11
+   },
+   "exhibit": "exhibits/E10.png",
+   "id": "E10"
+  },
+  {
+   "pattern": "nagging",
+   "description": "A promotional modal interrupts the task.",
+   "confidence": 0.5,
+   "severity": 0.3,
+   "evidence": [
+    "Overlay covering 100% of the viewport: \"\ud83d\udcf1 Get the ShopKart app Download our app for an extra 5% off. Offer valid today only! Download app M\u2026\""
+   ],
+   "source": "dom",
+   "node_id": "che-e233b0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": {
+    "x": 0,
+    "y": 0,
+    "w": 1280,
+    "h": 800
+   },
+   "exhibit": "exhibits/E11.png",
+   "id": "E11"
+  },
+  {
+   "pattern": "preselected_consent",
+   "description": "Consent / marketing option is opted-in by default.",
+   "confidence": 0.85,
+   "severity": 0.55,
+   "evidence": [
+    "Pre-checked consent: \"Send me offers and updates from ShopKart partners\""
+   ],
+   "source": "dom",
+   "node_id": "che-66aa2c",
+   "step": 2,
+   "url": "http://localhost:8000/samples/shop/checkout.html",
+   "bbox": {
+    "x": 213,
+    "y": 531,
+    "w": 13,
+    "h": 13
+   },
+   "exhibit": "exhibits/E12.png",
+   "id": "E12"
+  },
+  {
+   "pattern": "forced_action",
+   "description": "User must perform an unrelated action to proceed.",
+   "confidence": 0.7,
+   "severity": 0.5,
+   "evidence": [
+    "\"Create an account to continue \u2014 your email will be used for your ShopKart account.\""
+   ],
+   "source": "dom",
+   "node_id": "che-66aa2c",
+   "step": 2,
+   "url": "http://localhost:8000/samples/shop/checkout.html",
+   "bbox": {
+    "x": 209,
+    "y": 564,
+    "w": 862,
+    "h": 15
+   },
+   "exhibit": "exhibits/E13.png",
+   "id": "E13"
+  },
+  {
+   "pattern": "nagging",
+   "description": "Pop-ups interrupted the user on 2 of 4 screens.",
+   "confidence": 0.75,
+   "severity": 0.35,
+   "evidence": [
+    "Step 0: overlay on \"Noise-Cancelling Headphones \u2014 ShopKart\"",
+    "Step 1: overlay on \"Your Cart \u2014 ShopKart\""
+   ],
+   "source": "path",
+   "node_id": "che-e233b0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": null,
+   "exhibit": "exhibits/E14.png",
+   "id": "E14"
+  },
+  {
+   "pattern": "drip_pricing",
+   "description": "Mandatory fees are revealed only late in the checkout flow.",
+   "confidence": 0.9,
+   "severity": 0.75,
+   "evidence": [
+    "\"convenience fee\" (\u20b949) first appears at step 2 \u2014 not on the first page",
+    "\"platform fee\" (\u20b919) first appears at step 2 \u2014 not on the first page",
+    "\"packaging fee\" (\u20b935) first appears at step 2 \u2014 not on the first page",
+    "First price seen: 2499 \u2192 final total: 3021 (+21%)"
+   ],
+   "source": "path",
+   "node_id": "che-66aa2c",
+   "step": 2,
+   "url": "http://localhost:8000/samples/shop/checkout.html",
+   "bbox": null,
+   "exhibit": "exhibits/E15.png",
+   "id": "E15"
+  },
+  {
+   "pattern": "drip_pricing",
+   "description": "Final total is materially higher than the price first shown.",
+   "confidence": 0.6,
+   "severity": 0.6,
+   "evidence": [
+    "First price 2499 vs total 2918"
+   ],
+   "source": "path",
+   "node_id": "che-5469f0",
+   "step": 1,
+   "url": "http://localhost:8000/samples/shop/cart.html",
+   "bbox": null,
+   "exhibit": "exhibits/E16.png",
+   "id": "E16"
+  }
+ ],
+ "charges": [
+  {
+   "pattern": "basket_sneaking",
+   "name": "Basket Sneaking",
+   "category": "Lead to unauthorized charges",
+   "india_ccpa": "Basket Sneaking",
+   "charge": "Adding paid items (insurance, donations, add-ons) to the order without an explicit choice.",
+   "confidence": 0.9,
+   "severity": 0.8,
+   "verdict": "GUILTY",
+   "count": 2,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "basket_sneaking",
+     "description": "A paid extra is pre-selected and will be charged unless the user notices and removes it.",
+     "confidence": 0.9,
+     "severity": 0.8,
+     "evidence": [
+      "Pre-checked paid option: \"Add 1-year Accidental Damage Protection (+\u20b9399)\""
+     ],
+     "source": "dom",
+     "node_id": "che-e233b0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": {
+      "x": 213,
+      "y": 239,
+      "w": 13,
+      "h": 13
+     },
+     "exhibit": "exhibits/E07.png",
+     "id": "E07"
+    },
+    {
+     "pattern": "basket_sneaking",
+     "description": "A paid extra is pre-selected and will be charged unless the user notices and removes it.",
+     "confidence": 0.9,
+     "severity": 0.8,
+     "evidence": [
+      "Pre-checked paid option: \"Donate \u20b920 to Plant-a-Tree Foundation\""
+     ],
+     "source": "dom",
+     "node_id": "che-e233b0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": {
+      "x": 213,
+      "y": 277,
+      "w": 13,
+      "h": 13
+     },
+     "exhibit": "exhibits/E08.png",
+     "id": "E08"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-charges",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Unauthorized charges",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that lead to unauthorized charges include sneaking items into the basket, pre-checked boxes that add paid products, free trials that silently convert into paid subscriptions, and making cancellation difficult through multi-step flows, repeated retention offers or requiring the consumer to call. Consumers must give express informed consent before being charged."
+    },
+    {
+     "id": "in-ccpa-definitions",
+     "source": "India \u2014 CCPA Dark Patterns Guidelines 2023, Annexure 1 (paraphrased)",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "False urgency: falsely stating or implying urgency or scarcity to induce an immediate purchase. Basket sneaking: adding items, donations or charges at checkout without the user's consent. Confirm shaming: using phrases, video or audio to create fear, shame or guilt to nudge the user. Subscription trap: making cancellation impossible or complex, hiding the cancel option, or forcing payment details for a free trial. Interface interference: highlighting certain information and obscuring other relevant information to misdirect the user. Drip pricing: not revealing price elements upfront or revealing them surreptitiously. Nagging: repeated requests and interactions. Trick question: confusing or vague language to misguide the user."
+    },
+    {
+     "id": "ftc-dp-2022-overview",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (Sept 2022)",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "The FTC staff report describes dark patterns as design practices that trick or manipulate users into making choices they would not otherwise make and that may cause harm. It groups them into four themes: design elements that induce false beliefs, that hide or delay disclosure of material information, that lead to unauthorized charges, and that obscure or subvert privacy choices."
+    }
+   ],
+   "count_no": "Count 1"
+  },
+  {
+   "pattern": "forced_continuity",
+   "name": "Subscription Trap / Forced Continuity",
+   "category": "Lead to unauthorized charges",
+   "india_ccpa": "Subscription Trap",
+   "charge": "Converting a free trial into a paid, auto-renewing plan without clear, conspicuous disclosure.",
+   "confidence": 0.9,
+   "severity": 0.8,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "forced_continuity",
+     "description": "Free trial converts to a paid recurring plan and the renewal terms are hidden.",
+     "confidence": 0.9,
+     "severity": 0.8,
+     "evidence": [
+      "Offer: \"Start ShopKart Plus free trial (fast delivery)\"",
+      "Renewal disclosure only in fine print: \"Free for 30 days, then \u20b9299/month. Membership auto-renews and you will be charged automatically unless you cancel.\" (10px)"
+     ],
+     "source": "dom",
+     "node_id": "che-e233b0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": {
+      "x": 209,
+      "y": 336,
+      "w": 526,
+      "h": 11
+     },
+     "exhibit": "exhibits/E10.png",
+     "id": "E10"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-click-to-cancel",
+     "source": "FTC Negative Option ('Click-to-Cancel') Rule, 2024 (vacated by the U.S. 8th Circuit, July 2025)",
+     "url": "https://www.ftc.gov/legal-library/browse/rules/negative-option-rule",
+     "excerpt": "The FTC's 2024 amended Negative Option Rule would have required that cancelling be as easy as signing up and limited forced save attempts. A federal appeals court vacated the rule on procedural grounds in July 2025, but ROSCA and Section 5 still apply, and the FTC continues to bring cases against hard-to-cancel subscriptions (for example its 2025 settlement with Amazon over Prime enrolment and cancellation)."
+    },
+    {
+     "id": "rosca",
+     "source": "Restore Online Shoppers' Confidence Act (ROSCA), 15 U.S.C. \u00a7\u00a7 8401\u20138405",
+     "url": "https://www.ftc.gov/legal-library/browse/statutes/restore-online-shoppers-confidence-act",
+     "excerpt": "ROSCA prohibits charging consumers for goods or services sold online through a negative option feature unless the seller (1) clearly and conspicuously discloses all material terms before obtaining billing information, (2) obtains the consumer's express informed consent before charging, and (3) provides simple mechanisms for the consumer to stop recurring charges."
+    },
+    {
+     "id": "ftc-negative-option-2021",
+     "source": "FTC Enforcement Policy Statement Regarding Negative Option Marketing (Oct 2021)",
+     "url": "https://www.ftc.gov/legal-library/browse/federal-register-notices/enforcement-policy-statement-regarding-negative-option-marketing",
+     "excerpt": "The FTC's policy statement says negative option sellers should disclose material terms clearly and conspicuously, obtain unambiguous affirmative consent, and provide cancellation mechanisms that are at least as easy to use as the method used to sign up. Cancellation should not require the consumer to navigate obstacles such as repeated save attempts."
+    }
+   ],
+   "count_no": "Count 2"
+  },
+  {
+   "pattern": "drip_pricing",
+   "name": "Drip Pricing / Hidden Fees",
+   "category": "Hide or delay material information",
+   "india_ccpa": "Drip Pricing",
+   "charge": "Revealing mandatory fees only late in the checkout, after the advertised price.",
+   "confidence": 0.96,
+   "severity": 0.75,
+   "verdict": "GUILTY",
+   "count": 2,
+   "sources": [
+    "path"
+   ],
+   "exhibits": [
+    {
+     "pattern": "drip_pricing",
+     "description": "Mandatory fees are revealed only late in the checkout flow.",
+     "confidence": 0.9,
+     "severity": 0.75,
+     "evidence": [
+      "\"convenience fee\" (\u20b949) first appears at step 2 \u2014 not on the first page",
+      "\"platform fee\" (\u20b919) first appears at step 2 \u2014 not on the first page",
+      "\"packaging fee\" (\u20b935) first appears at step 2 \u2014 not on the first page",
+      "First price seen: 2499 \u2192 final total: 3021 (+21%)"
+     ],
+     "source": "path",
+     "node_id": "che-66aa2c",
+     "step": 2,
+     "url": "http://localhost:8000/samples/shop/checkout.html",
+     "bbox": null,
+     "exhibit": "exhibits/E15.png",
+     "id": "E15"
+    },
+    {
+     "pattern": "drip_pricing",
+     "description": "Final total is materially higher than the price first shown.",
+     "confidence": 0.6,
+     "severity": 0.6,
+     "evidence": [
+      "First price 2499 vs total 2918"
+     ],
+     "source": "path",
+     "node_id": "che-5469f0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": null,
+     "exhibit": "exhibits/E16.png",
+     "id": "E16"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-fees-rule",
+     "source": "FTC Rule on Unfair or Deceptive Fees, 16 CFR Part 464 (effective May 2025)",
+     "url": "https://www.ftc.gov/legal-library/browse/rules/rule-unfair-or-deceptive-fees",
+     "excerpt": "For live-event tickets and short-term lodging, the FTC fees rule requires businesses to display the total price, including all mandatory fees, more prominently than other pricing information, and prohibits misrepresenting the nature and purpose of fees. It targets hidden 'junk fees' and drip pricing."
+    },
+    {
+     "id": "ftc-dp-hide-info",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Hide or delay material information",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that hide or delay disclosure of material information include drip pricing, where mandatory fees are revealed only after the consumer has started the purchase process, and burying key terms in fine print, behind hyperlinks or in low-contrast text. Material information must be disclosed clearly and conspicuously, before the consumer commits."
+    },
+    {
+     "id": "in-ccpa-definitions",
+     "source": "India \u2014 CCPA Dark Patterns Guidelines 2023, Annexure 1 (paraphrased)",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "False urgency: falsely stating or implying urgency or scarcity to induce an immediate purchase. Basket sneaking: adding items, donations or charges at checkout without the user's consent. Confirm shaming: using phrases, video or audio to create fear, shame or guilt to nudge the user. Subscription trap: making cancellation impossible or complex, hiding the cancel option, or forcing payment details for a free trial. Interface interference: highlighting certain information and obscuring other relevant information to misdirect the user. Drip pricing: not revealing price elements upfront or revealing them surreptitiously. Nagging: repeated requests and interactions. Trick question: confusing or vague language to misguide the user."
+    }
+   ],
+   "count_no": "Count 3"
+  },
+  {
+   "pattern": "false_urgency",
+   "name": "False Urgency",
+   "category": "Induce false beliefs",
+   "india_ccpa": "False Urgency",
+   "charge": "Fabricating time pressure (countdown timers / limited-time claims) to rush the user.",
+   "confidence": 0.98,
+   "severity": 0.6,
+   "verdict": "GUILTY",
+   "count": 2,
+   "sources": [
+    "dom",
+    "temporal"
+   ],
+   "exhibits": [
+    {
+     "pattern": "false_urgency",
+     "description": "Time-pressure messaging found and the countdown resets on reload \u2014 the deadline is fake.",
+     "confidence": 0.95,
+     "severity": 0.6,
+     "evidence": [
+      "Urgency claim: \"\u26a1 Deal ends in 09:59 \u2014 hurry!\"",
+      "Forensic reload test: countdown read 598s, after 2.0s + reload it read 599s (timer restarted instead of continuing)."
+     ],
+     "source": "temporal",
+     "node_id": "che-675f5c",
+     "step": 0,
+     "url": "http://localhost:8000/samples/shop/product.html",
+     "bbox": {
+      "x": 584,
+      "y": 255,
+      "w": 508,
+      "h": 19
+     },
+     "exhibit": "exhibits/E01.png",
+     "id": "E01"
+    },
+    {
+     "pattern": "false_urgency",
+     "description": "Time-pressure messaging found.",
+     "confidence": 0.55,
+     "severity": 0.6,
+     "evidence": [
+      "Urgency claim: \"Download our app for an extra 5% off. Offer valid today only!\""
+     ],
+     "source": "dom",
+     "node_id": "che-e233b0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": {
+      "x": 440,
+      "y": 363,
+      "w": 400,
+      "h": 36
+     },
+     "exhibit": "exhibits/E06.png",
+     "id": "E06"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-false-beliefs",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Induce false beliefs",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Examples of design elements that induce false beliefs include false claims of scarcity (low stock messages), false claims of urgency such as countdown timers that reset or that are unrelated to any real deadline, fake activity messages and fabricated social proof such as fake reviews or 'X people are viewing this' notices. The FTC Act prohibits such deceptive claims."
+    },
+    {
+     "id": "eu-ucpd-annex",
+     "source": "EU Unfair Commercial Practices Directive 2005/29/EC, Annex I point 7",
+     "url": "https://eur-lex.europa.eu/eli/dir/2005/29/oj",
+     "excerpt": "Falsely stating that a product will only be available for a very limited time, or only on particular terms for a very limited time, in order to elicit an immediate decision and deprive consumers of time to make an informed choice, is a commercial practice considered unfair in all circumstances."
+    },
+    {
+     "id": "in-ccpa-definitions",
+     "source": "India \u2014 CCPA Dark Patterns Guidelines 2023, Annexure 1 (paraphrased)",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "False urgency: falsely stating or implying urgency or scarcity to induce an immediate purchase. Basket sneaking: adding items, donations or charges at checkout without the user's consent. Confirm shaming: using phrases, video or audio to create fear, shame or guilt to nudge the user. Subscription trap: making cancellation impossible or complex, hiding the cancel option, or forcing payment details for a free trial. Interface interference: highlighting certain information and obscuring other relevant information to misdirect the user. Drip pricing: not revealing price elements upfront or revealing them surreptitiously. Nagging: repeated requests and interactions. Trick question: confusing or vague language to misguide the user."
+    }
+   ],
+   "count_no": "Count 4"
+  },
+  {
+   "pattern": "hidden_information",
+   "name": "Hidden Material Information",
+   "category": "Hide or delay material information",
+   "india_ccpa": "Interface Interference",
+   "charge": "Placing material terms (renewal, fees, cancellation) in tiny or low-contrast text.",
+   "confidence": 0.9,
+   "severity": 0.65,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "hidden_information",
+     "description": "Material terms are displayed in fine print / low-contrast text.",
+     "confidence": 0.9,
+     "severity": 0.65,
+     "evidence": [
+      "Material term: \"Free for 30 days, then \u20b9299/month. Membership auto-renews and you will be charged automatically unless you cancel.\"",
+      "Font size 10px, contrast 1.75:1"
+     ],
+     "source": "dom",
+     "node_id": "che-e233b0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": {
+      "x": 209,
+      "y": 336,
+      "w": 526,
+      "h": 11
+     },
+     "exhibit": "exhibits/E09.png",
+     "id": "E09"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-hide-info",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Hide or delay material information",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that hide or delay disclosure of material information include drip pricing, where mandatory fees are revealed only after the consumer has started the purchase process, and burying key terms in fine print, behind hyperlinks or in low-contrast text. Material information must be disclosed clearly and conspicuously, before the consumer commits."
+    },
+    {
+     "id": "wcag-143",
+     "source": "W3C WCAG 2.2 \u2014 Success Criterion 1.4.3 Contrast (Minimum)",
+     "url": "https://www.w3.org/TR/WCAG22/#contrast-minimum",
+     "excerpt": "Text should have a contrast ratio of at least 4.5:1 against its background (3:1 for large text). Used here as an objective, measurable yardstick for whether a disclosure or alternative option is 'clear and conspicuous'."
+    },
+    {
+     "id": "ftc-act-s5",
+     "source": "FTC Act, Section 5 (15 U.S.C. \u00a7 45)",
+     "url": "https://www.ftc.gov/legal-library/browse/statutes/federal-trade-commission-act",
+     "excerpt": "Section 5 of the FTC Act declares unlawful unfair or deceptive acts or practices in or affecting commerce. A practice is deceptive if a representation, omission or practice is likely to mislead a consumer acting reasonably and is material. The net impression of an interface, not only its literal text, is evaluated."
+    }
+   ],
+   "count_no": "Count 5"
+  },
+  {
+   "pattern": "preselected_consent",
+   "name": "Pre-selected Consent",
+   "category": "Obscure or subvert privacy choices",
+   "india_ccpa": "Forced Action / Interface Interference",
+   "charge": "Opting the user in by default to data sharing, marketing or tracking.",
+   "confidence": 0.85,
+   "severity": 0.55,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "preselected_consent",
+     "description": "Consent / marketing option is opted-in by default.",
+     "confidence": 0.85,
+     "severity": 0.55,
+     "evidence": [
+      "Pre-checked consent: \"Send me offers and updates from ShopKart partners\""
+     ],
+     "source": "dom",
+     "node_id": "che-66aa2c",
+     "step": 2,
+     "url": "http://localhost:8000/samples/shop/checkout.html",
+     "bbox": {
+      "x": 213,
+      "y": 531,
+      "w": 13,
+      "h": 13
+     },
+     "exhibit": "exhibits/E12.png",
+     "id": "E12"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-privacy",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Obscure or subvert privacy choices",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that subvert privacy choices include defaulting users into data sharing, making the privacy-protective option harder to find or less visually prominent than the option that shares more data ('accept all' bright, 'reject' hidden), confusing toggles and double-negative wording, and requiring repeated steps to decline. Choices should be presented neutrally and symmetrically."
+    },
+    {
+     "id": "eu-crd-22",
+     "source": "EU Consumer Rights Directive 2011/83/EU, Article 22",
+     "url": "https://eur-lex.europa.eu/eli/dir/2011/83/oj",
+     "excerpt": "Before the consumer is bound, the trader must seek the consumer's express consent to any extra payment beyond the main contractual obligation. Consent may not be inferred from default options, such as pre-ticked boxes, that the consumer must reject to avoid the additional payment."
+    },
+    {
+     "id": "ccpa-regs-7004",
+     "source": "California CCPA Regulations, 11 CCR \u00a7 7004 (symmetry in choice)",
+     "url": "https://cppa.ca.gov/regulations/",
+     "excerpt": "Methods for submitting privacy requests and obtaining consent must use easy-to-understand language and symmetry in choice: the path to a more privacy-protective option shall not be longer or more difficult than the path to a less protective option. Confirmshaming and pre-selected options are cited as non-compliant; agreement obtained through dark patterns is not consent."
+    }
+   ],
+   "count_no": "Count 6"
+  },
+  {
+   "pattern": "confirmshaming",
+   "name": "Confirmshaming",
+   "category": "Induce false beliefs",
+   "india_ccpa": "Confirm Shaming",
+   "charge": "Wording the decline option to guilt or shame the user into accepting.",
+   "confidence": 0.85,
+   "severity": 0.5,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "confirmshaming",
+     "description": "Decline option is worded to shame the user.",
+     "confidence": 0.85,
+     "severity": 0.5,
+     "evidence": [
+      "Decline control reads: \"No thanks, I don't like saving money\""
+     ],
+     "source": "dom",
+     "node_id": "che-675f5c",
+     "step": 0,
+     "url": "http://localhost:8000/samples/shop/product.html",
+     "bbox": {
+      "x": 542,
+      "y": 514,
+      "w": 196,
+      "h": 18
+     },
+     "exhibit": "exhibits/E04.png",
+     "id": "E04"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "in-ccpa-definitions",
+     "source": "India \u2014 CCPA Dark Patterns Guidelines 2023, Annexure 1 (paraphrased)",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "False urgency: falsely stating or implying urgency or scarcity to induce an immediate purchase. Basket sneaking: adding items, donations or charges at checkout without the user's consent. Confirm shaming: using phrases, video or audio to create fear, shame or guilt to nudge the user. Subscription trap: making cancellation impossible or complex, hiding the cancel option, or forcing payment details for a free trial. Interface interference: highlighting certain information and obscuring other relevant information to misdirect the user. Drip pricing: not revealing price elements upfront or revealing them surreptitiously. Nagging: repeated requests and interactions. Trick question: confusing or vague language to misguide the user."
+    },
+    {
+     "id": "ccpa-regs-7004",
+     "source": "California CCPA Regulations, 11 CCR \u00a7 7004 (symmetry in choice)",
+     "url": "https://cppa.ca.gov/regulations/",
+     "excerpt": "Methods for submitting privacy requests and obtaining consent must use easy-to-understand language and symmetry in choice: the path to a more privacy-protective option shall not be longer or more difficult than the path to a less protective option. Confirmshaming and pre-selected options are cited as non-compliant; agreement obtained through dark patterns is not consent."
+    },
+    {
+     "id": "ftc-dp-privacy",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Obscure or subvert privacy choices",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that subvert privacy choices include defaulting users into data sharing, making the privacy-protective option harder to find or less visually prominent than the option that shares more data ('accept all' bright, 'reject' hidden), confusing toggles and double-negative wording, and requiring repeated steps to decline. Choices should be presented neutrally and symmetrically."
+    }
+   ],
+   "count_no": "Count 7"
+  },
+  {
+   "pattern": "fake_scarcity",
+   "name": "Fake Scarcity",
+   "category": "Induce false beliefs",
+   "india_ccpa": "False Urgency",
+   "charge": "Claiming low stock or high demand to pressure the purchase decision.",
+   "confidence": 0.85,
+   "severity": 0.45,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "fake_scarcity",
+     "description": "Low-stock / high-demand claim used as pressure.",
+     "confidence": 0.85,
+     "severity": 0.45,
+     "evidence": [
+      "Scarcity claim: \"Only 4 left in stock!\"",
+      "Reload test: ['4 left', '31 people'] \u2192 ['2 left', '24 people'] (values change randomly)."
+     ],
+     "source": "dom",
+     "node_id": "che-675f5c",
+     "step": 0,
+     "url": "http://localhost:8000/samples/shop/product.html",
+     "bbox": {
+      "x": 584,
+      "y": 290,
+      "w": 508,
+      "h": 18
+     },
+     "exhibit": "exhibits/E02.png",
+     "id": "E02"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-false-beliefs",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Induce false beliefs",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Examples of design elements that induce false beliefs include false claims of scarcity (low stock messages), false claims of urgency such as countdown timers that reset or that are unrelated to any real deadline, fake activity messages and fabricated social proof such as fake reviews or 'X people are viewing this' notices. The FTC Act prohibits such deceptive claims."
+    },
+    {
+     "id": "eu-ucpd-annex",
+     "source": "EU Unfair Commercial Practices Directive 2005/29/EC, Annex I point 7",
+     "url": "https://eur-lex.europa.eu/eli/dir/2005/29/oj",
+     "excerpt": "Falsely stating that a product will only be available for a very limited time, or only on particular terms for a very limited time, in order to elicit an immediate decision and deprive consumers of time to make an informed choice, is a commercial practice considered unfair in all circumstances."
+    },
+    {
+     "id": "ftc-act-s5",
+     "source": "FTC Act, Section 5 (15 U.S.C. \u00a7 45)",
+     "url": "https://www.ftc.gov/legal-library/browse/statutes/federal-trade-commission-act",
+     "excerpt": "Section 5 of the FTC Act declares unlawful unfair or deceptive acts or practices in or affecting commerce. A practice is deceptive if a representation, omission or practice is likely to mislead a consumer acting reasonably and is material. The net impression of an interface, not only its literal text, is evaluated."
+    }
+   ],
+   "count_no": "Count 8"
+  },
+  {
+   "pattern": "fake_social_proof",
+   "name": "Fake Social Proof",
+   "category": "Induce false beliefs",
+   "india_ccpa": "False Urgency",
+   "charge": "Showing activity messages (\"23 people are viewing\") that appear fabricated.",
+   "confidence": 0.88,
+   "severity": 0.4,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "fake_social_proof",
+     "description": "Activity / popularity notification that appears fabricated.",
+     "confidence": 0.88,
+     "severity": 0.4,
+     "evidence": [
+      "Activity message: \"\ud83d\udc40 31 people are viewing this right now\"",
+      "Reload test: ['4 left', '31 people'] \u2192 ['2 left', '24 people'] (numbers regenerate on every load)."
+     ],
+     "source": "dom",
+     "node_id": "che-675f5c",
+     "step": 0,
+     "url": "http://localhost:8000/samples/shop/product.html",
+     "bbox": {
+      "x": 584,
+      "y": 324,
+      "w": 508,
+      "h": 19
+     },
+     "exhibit": "exhibits/E03.png",
+     "id": "E03"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-false-beliefs",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Induce false beliefs",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Examples of design elements that induce false beliefs include false claims of scarcity (low stock messages), false claims of urgency such as countdown timers that reset or that are unrelated to any real deadline, fake activity messages and fabricated social proof such as fake reviews or 'X people are viewing this' notices. The FTC Act prohibits such deceptive claims."
+    },
+    {
+     "id": "ftc-reviews-rule",
+     "source": "FTC Rule on the Use of Consumer Reviews and Testimonials, 16 CFR Part 465 (2024)",
+     "url": "https://www.ftc.gov/legal-library/browse/rules/trade-regulation-rule-use-consumer-reviews-testimonials",
+     "excerpt": "The FTC's consumer reviews rule prohibits fake or false consumer reviews and testimonials, buying reviews, and misrepresenting social-media influence indicators. Fabricated popularity or activity signals can also be deceptive under Section 5."
+    },
+    {
+     "id": "ftc-act-s5",
+     "source": "FTC Act, Section 5 (15 U.S.C. \u00a7 45)",
+     "url": "https://www.ftc.gov/legal-library/browse/statutes/federal-trade-commission-act",
+     "excerpt": "Section 5 of the FTC Act declares unlawful unfair or deceptive acts or practices in or affecting commerce. A practice is deceptive if a representation, omission or practice is likely to mislead a consumer acting reasonably and is material. The net impression of an interface, not only its literal text, is evaluated."
+    }
+   ],
+   "count_no": "Count 9"
+  },
+  {
+   "pattern": "nagging",
+   "name": "Nagging",
+   "category": "Induce false beliefs",
+   "india_ccpa": "Nagging",
+   "charge": "Repeatedly interrupting the user with pop-ups or requests.",
+   "confidence": 0.94,
+   "severity": 0.35,
+   "verdict": "GUILTY",
+   "count": 3,
+   "sources": [
+    "dom",
+    "path"
+   ],
+   "exhibits": [
+    {
+     "pattern": "nagging",
+     "description": "Pop-ups interrupted the user on 2 of 4 screens.",
+     "confidence": 0.75,
+     "severity": 0.35,
+     "evidence": [
+      "Step 0: overlay on \"Noise-Cancelling Headphones \u2014 ShopKart\"",
+      "Step 1: overlay on \"Your Cart \u2014 ShopKart\""
+     ],
+     "source": "path",
+     "node_id": "che-e233b0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": null,
+     "exhibit": "exhibits/E14.png",
+     "id": "E14"
+    },
+    {
+     "pattern": "nagging",
+     "description": "A promotional modal interrupts the task.",
+     "confidence": 0.5,
+     "severity": 0.3,
+     "evidence": [
+      "Overlay covering 100% of the viewport: \"Wait! Get 10% off \ud83c\udf81 Subscribe to our newsletter and get 10% off your first order. Subscribe No than\u2026\""
+     ],
+     "source": "dom",
+     "node_id": "che-675f5c",
+     "step": 0,
+     "url": "http://localhost:8000/samples/shop/product.html",
+     "bbox": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 800
+     },
+     "exhibit": "exhibits/E05.png",
+     "id": "E05"
+    },
+    {
+     "pattern": "nagging",
+     "description": "A promotional modal interrupts the task.",
+     "confidence": 0.5,
+     "severity": 0.3,
+     "evidence": [
+      "Overlay covering 100% of the viewport: \"\ud83d\udcf1 Get the ShopKart app Download our app for an extra 5% off. Offer valid today only! Download app M\u2026\""
+     ],
+     "source": "dom",
+     "node_id": "che-e233b0",
+     "step": 1,
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "bbox": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 800
+     },
+     "exhibit": "exhibits/E11.png",
+     "id": "E11"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "in-ccpa-definitions",
+     "source": "India \u2014 CCPA Dark Patterns Guidelines 2023, Annexure 1 (paraphrased)",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "False urgency: falsely stating or implying urgency or scarcity to induce an immediate purchase. Basket sneaking: adding items, donations or charges at checkout without the user's consent. Confirm shaming: using phrases, video or audio to create fear, shame or guilt to nudge the user. Subscription trap: making cancellation impossible or complex, hiding the cancel option, or forcing payment details for a free trial. Interface interference: highlighting certain information and obscuring other relevant information to misdirect the user. Drip pricing: not revealing price elements upfront or revealing them surreptitiously. Nagging: repeated requests and interactions. Trick question: confusing or vague language to misguide the user."
+    },
+    {
+     "id": "in-ccpa-2023",
+     "source": "India \u2014 CCPA Guidelines for Prevention and Regulation of Dark Patterns, 2023",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "Issued under the Consumer Protection Act, 2019, the guidelines prohibit dark patterns on platforms offering goods or services in India and list 13 specified patterns: false urgency, basket sneaking, confirm shaming, forced action, subscription trap, interface interference, bait and switch, drip pricing, disguised advertisement, nagging, trick question, SaaS billing and rogue malwares."
+    },
+    {
+     "id": "ccpa-regs-7004",
+     "source": "California CCPA Regulations, 11 CCR \u00a7 7004 (symmetry in choice)",
+     "url": "https://cppa.ca.gov/regulations/",
+     "excerpt": "Methods for submitting privacy requests and obtaining consent must use easy-to-understand language and symmetry in choice: the path to a more privacy-protective option shall not be longer or more difficult than the path to a less protective option. Confirmshaming and pre-selected options are cited as non-compliant; agreement obtained through dark patterns is not consent."
+    }
+   ],
+   "count_no": "Count 10"
+  },
+  {
+   "pattern": "forced_action",
+   "name": "Forced Action",
+   "category": "Obscure or subvert privacy choices",
+   "india_ccpa": "Forced Action",
+   "charge": "Requiring an unrelated action (account creation, data sharing) to access the service.",
+   "confidence": 0.7,
+   "severity": 0.5,
+   "verdict": "LIKELY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "forced_action",
+     "description": "User must perform an unrelated action to proceed.",
+     "confidence": 0.7,
+     "severity": 0.5,
+     "evidence": [
+      "\"Create an account to continue \u2014 your email will be used for your ShopKart account.\""
+     ],
+     "source": "dom",
+     "node_id": "che-66aa2c",
+     "step": 2,
+     "url": "http://localhost:8000/samples/shop/checkout.html",
+     "bbox": {
+      "x": 209,
+      "y": 564,
+      "w": 862,
+      "h": 15
+     },
+     "exhibit": "exhibits/E13.png",
+     "id": "E13"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "in-ccpa-2023",
+     "source": "India \u2014 CCPA Guidelines for Prevention and Regulation of Dark Patterns, 2023",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "Issued under the Consumer Protection Act, 2019, the guidelines prohibit dark patterns on platforms offering goods or services in India and list 13 specified patterns: false urgency, basket sneaking, confirm shaming, forced action, subscription trap, interface interference, bait and switch, drip pricing, disguised advertisement, nagging, trick question, SaaS billing and rogue malwares."
+    },
+    {
+     "id": "ftc-dp-privacy",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Obscure or subvert privacy choices",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that subvert privacy choices include defaulting users into data sharing, making the privacy-protective option harder to find or less visually prominent than the option that shares more data ('accept all' bright, 'reject' hidden), confusing toggles and double-negative wording, and requiring repeated steps to decline. Choices should be presented neutrally and symmetrically."
+    },
+    {
+     "id": "ftc-negative-option-2021",
+     "source": "FTC Enforcement Policy Statement Regarding Negative Option Marketing (Oct 2021)",
+     "url": "https://www.ftc.gov/legal-library/browse/federal-register-notices/enforcement-policy-statement-regarding-negative-option-marketing",
+     "excerpt": "The FTC's policy statement says negative option sellers should disclose material terms clearly and conspicuously, obtain unambiguous affirmative consent, and provide cancellation mechanisms that are at least as easy to use as the method used to sign up. Cancellation should not require the consumer to navigate obstacles such as repeated save attempts."
+    }
+   ],
+   "count_no": "Count 11"
+  }
+ ],
+ "journeys": [
+  {
+   "goal": "checkout",
+   "label": "Buy the product (minimal purchase)",
+   "reached": true,
+   "clicks": 3,
+   "path": [
+    "che-675f5c",
+    "che-e233b0",
+    "che-66aa2c",
+    "che-ec6a32"
+   ],
+   "steps": [
+    {
+     "step": 0,
+     "node_id": "che-675f5c",
+     "url": "http://localhost:8000/samples/shop/product.html",
+     "title": "Noise-Cancelling Headphones \u2014 ShopKart",
+     "testimony": "User opened \"Noise-Cancelling Headphones \u2014 ShopKart\" intending to: Buy the product (minimal purchase).",
+     "observations": [
+      "False Urgency: Urgency claim: \"\u26a1 Deal ends in 09:59 \u2014 hurry!\"",
+      "Fake Scarcity: Scarcity claim: \"Only 4 left in stock!\"",
+      "Fake Social Proof: Activity message: \"\ud83d\udc40 31 people are viewing this right now\"",
+      "Confirmshaming: Decline control reads: \"No thanks, I don't like saving money\""
+     ],
+     "screenshot": "shots/che-675f5c.png"
+    },
+    {
+     "step": 1,
+     "node_id": "che-e233b0",
+     "url": "http://localhost:8000/samples/shop/cart.html",
+     "title": "Your Cart \u2014 ShopKart",
+     "testimony": "User clicked \"Add to cart\" \u2192 arrived at \"Your Cart \u2014 ShopKart\".",
+     "observations": [
+      "False Urgency: Urgency claim: \"Download our app for an extra 5% off. Offer valid today only!\"",
+      "Basket Sneaking: Pre-checked paid option: \"Add 1-year Accidental Damage Protection (+\u20b9399)\"",
+      "Basket Sneaking: Pre-checked paid option: \"Donate \u20b920 to Plant-a-Tree Foundation\"",
+      "Hidden Material Information: Material term: \"Free for 30 days, then \u20b9299/month. Membership auto-renews and you will be charged automatically unless you cancel.\""
+     ],
+     "screenshot": "shots/che-e233b0.png"
+    },
+    {
+     "step": 2,
+     "node_id": "che-66aa2c",
+     "url": "http://localhost:8000/samples/shop/checkout.html",
+     "title": "Checkout \u2014 ShopKart",
+     "testimony": "User clicked \"Proceed to checkout\" \u2192 arrived at \"Checkout \u2014 ShopKart\".",
+     "observations": [
+      "Pre-selected Consent: Pre-checked consent: \"Send me offers and updates from ShopKart partners\"",
+      "Forced Action: \"Create an account to continue \u2014 your email will be used for your ShopKart account.\""
+     ],
+     "screenshot": "shots/che-66aa2c.png"
+    },
+    {
+     "step": 3,
+     "node_id": "che-ec6a32",
+     "url": "http://localhost:8000/samples/shop/confirmed.html",
+     "title": "Order confirmed \u2014 ShopKart",
+     "testimony": "User clicked \"Place order\" \u2192 arrived at \"Order confirmed \u2014 ShopKart\".",
+     "observations": [],
+     "screenshot": "shots/che-ec6a32.png"
+    },
+    {
+     "step": 4,
+     "node_id": null,
+     "testimony": "Goal reached.",
+     "observations": [],
+     "url": null,
+     "title": null,
+     "screenshot": null
+    }
+   ],
+   "alternatives": [
+    {
+     "path": [
+      "che-675f5c",
+      "che-5469f0"
+     ],
+     "end": "Your Cart \u2014 ShopKart",
+     "reached": false
+    },
+    {
+     "path": [
+      "che-675f5c",
+      "che-e233b0",
+      "che-291e9e"
+     ],
+     "end": "Your Cart \u2014 ShopKart",
+     "reached": false
+    },
+    {
+     "path": [
+      "che-675f5c",
+      "che-e233b0",
+      "che-e3a5df"
+     ],
+     "end": "Your Cart \u2014 ShopKart",
+     "reached": false
+    },
+    {
+     "path": [
+      "che-675f5c",
+      "che-e9e474",
+      "che-5b366e"
+     ],
+     "end": "Your Cart \u2014 ShopKart",
+     "reached": false
+    },
+    {
+     "path": [
+      "che-675f5c",
+      "che-e9e474",
+      "che-b880f2"
+     ],
+     "end": "Your Cart \u2014 ShopKart",
+     "reached": false
+    },
+    {
+     "path": [
+      "che-675f5c",
+      "che-e9e474",
+      "che-fc07ee",
+      "che-c40af1"
+     ],
+     "end": "Order confirmed \u2014 ShopKart",
+     "reached": true
+    }
+   ]
+  }
+ ],
+ "trees": {
+  "checkout": {
+   "che-675f5c": {
+    "id": "che-675f5c",
+    "parent": null,
+    "depth": 0,
+    "url": "http://localhost:8000/samples/shop/product.html",
+    "title": "Noise-Cancelling Headphones \u2014 ShopKart",
+    "thought": {
+     "text": "Open start page",
+     "score": 0,
+     "rationale": "start"
+    },
+    "status": "expanded",
+    "children": [
+     "che-e233b0",
+     "che-e9e474",
+     "che-5469f0"
+    ],
+    "pruned": [
+     {
+      "text": "Subscribe",
+      "score": 0.5,
+      "reason": "outside beam (lower value)"
+     },
+     {
+      "text": "No thanks, I don't like saving money",
+      "score": 0.5,
+      "reason": "outside beam (lower value)"
+     },
+     {
+      "text": "Electronics",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 0.0,
+    "screenshot": "shots/che-675f5c.png",
+    "action": null,
+    "finding_count": 5
+   },
+   "che-e233b0": {
+    "id": "che-e233b0",
+    "parent": "che-675f5c",
+    "depth": 1,
+    "url": "http://localhost:8000/samples/shop/cart.html",
+    "title": "Your Cart \u2014 ShopKart",
+    "thought": {
+     "text": "Add to cart",
+     "score": 10,
+     "rationale": "+10 'add to cart', +3 'cart'"
+    },
+    "status": "expanded",
+    "children": [
+     "che-66aa2c",
+     "che-291e9e",
+     "che-e3a5df"
+    ],
+    "pruned": [
+     {
+      "text": "Cart",
+      "score": -1,
+      "reason": "+3 'cart', -4 returns to an already visited page"
+     },
+     {
+      "text": "Electronics",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Continue shopping",
+      "score": -5,
+      "reason": "+6 'continue', -7 'continue shopping', -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 10.0,
+    "screenshot": "shots/che-e233b0.png",
+    "action": {
+     "tag": "a",
+     "text": "Add to cart",
+     "href": "cart.html",
+     "bbox": {
+      "x": 584,
+      "y": 393,
+      "w": 163,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 6
+   },
+   "che-e9e474": {
+    "id": "che-e9e474",
+    "parent": "che-675f5c",
+    "depth": 1,
+    "url": "http://localhost:8000/samples/shop/cart.html",
+    "title": "Your Cart \u2014 ShopKart",
+    "thought": {
+     "text": "Buy now",
+     "score": 9,
+     "rationale": "+9 'buy now'"
+    },
+    "status": "expanded",
+    "children": [
+     "che-fc07ee",
+     "che-5b366e",
+     "che-b880f2"
+    ],
+    "pruned": [
+     {
+      "text": "Cart",
+      "score": -1,
+      "reason": "+3 'cart', -4 returns to an already visited page"
+     },
+     {
+      "text": "Electronics",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Continue shopping",
+      "score": -5,
+      "reason": "+6 'continue', -7 'continue shopping', -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 9.0,
+    "screenshot": "shots/che-e9e474.png",
+    "action": {
+     "tag": "a",
+     "text": "Buy now",
+     "href": "cart.html",
+     "bbox": {
+      "x": 751,
+      "y": 393,
+      "w": 143,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 6
+   },
+   "che-5469f0": {
+    "id": "che-5469f0",
+    "parent": "che-675f5c",
+    "depth": 1,
+    "url": "http://localhost:8000/samples/shop/cart.html",
+    "title": "Your Cart \u2014 ShopKart",
+    "thought": {
+     "text": "Cart",
+     "score": 3,
+     "rationale": "+3 'cart'"
+    },
+    "status": "beam_pruned",
+    "children": [],
+    "pruned": [],
+    "goal_reached": false,
+    "value": 3.0,
+    "screenshot": "shots/che-5469f0.png",
+    "action": {
+     "tag": "a",
+     "text": "Cart",
+     "href": "cart.html",
+     "bbox": {
+      "x": 248,
+      "y": 17,
+      "w": 30,
+      "h": 18
+     },
+     "below_fold": false
+    },
+    "finding_count": 6
+   },
+   "che-66aa2c": {
+    "id": "che-66aa2c",
+    "parent": "che-e233b0",
+    "depth": 2,
+    "url": "http://localhost:8000/samples/shop/checkout.html",
+    "title": "Checkout \u2014 ShopKart",
+    "thought": {
+     "text": "Proceed to checkout",
+     "score": 10,
+     "rationale": "+9 'checkout', +10 'proceed to checkout', +7 'proceed'"
+    },
+    "status": "expanded",
+    "children": [
+     "che-ec6a32"
+    ],
+    "pruned": [],
+    "goal_reached": false,
+    "value": 20.0,
+    "screenshot": "shots/che-66aa2c.png",
+    "action": {
+     "tag": "a",
+     "text": "Proceed to checkout",
+     "href": "checkout.html",
+     "bbox": {
+      "x": 209,
+      "y": 411,
+      "w": 245,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 2
+   },
+   "che-291e9e": {
+    "id": "che-291e9e",
+    "parent": "che-e233b0",
+    "depth": 2,
+    "url": "http://localhost:8000/samples/shop/cart.html",
+    "title": "Your Cart \u2014 ShopKart",
+    "thought": {
+     "text": "Download app",
+     "score": 0.5,
+     "rationale": "no goal signal"
+    },
+    "status": "beam_pruned",
+    "children": [],
+    "pruned": [],
+    "goal_reached": false,
+    "value": 10.5,
+    "screenshot": "shots/che-291e9e.png",
+    "action": {
+     "tag": "button",
+     "text": "Download app",
+     "href": "",
+     "bbox": {
+      "x": 545,
+      "y": 415,
+      "w": 191,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 4
+   },
+   "che-e3a5df": {
+    "id": "che-e3a5df",
+    "parent": "che-e233b0",
+    "depth": 2,
+    "url": "http://localhost:8000/samples/shop/cart.html",
+    "title": "Your Cart \u2014 ShopKart",
+    "thought": {
+     "text": "Maybe later",
+     "score": 0.5,
+     "rationale": "no goal signal"
+    },
+    "status": "beam_pruned",
+    "children": [],
+    "pruned": [],
+    "goal_reached": false,
+    "value": 10.5,
+    "screenshot": "shots/che-e3a5df.png",
+    "action": {
+     "tag": "button",
+     "text": "Maybe later",
+     "href": "",
+     "bbox": {
+      "x": 607,
+      "y": 487,
+      "w": 67,
+      "h": 18
+     },
+     "below_fold": false
+    },
+    "finding_count": 4
+   },
+   "che-fc07ee": {
+    "id": "che-fc07ee",
+    "parent": "che-e9e474",
+    "depth": 2,
+    "url": "http://localhost:8000/samples/shop/checkout.html",
+    "title": "Checkout \u2014 ShopKart",
+    "thought": {
+     "text": "Proceed to checkout",
+     "score": 10,
+     "rationale": "+9 'checkout', +10 'proceed to checkout', +7 'proceed'"
+    },
+    "status": "expanded",
+    "children": [
+     "che-c40af1"
+    ],
+    "pruned": [],
+    "goal_reached": false,
+    "value": 19.0,
+    "screenshot": "shots/che-fc07ee.png",
+    "action": {
+     "tag": "a",
+     "text": "Proceed to checkout",
+     "href": "checkout.html",
+     "bbox": {
+      "x": 209,
+      "y": 411,
+      "w": 245,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 2
+   },
+   "che-5b366e": {
+    "id": "che-5b366e",
+    "parent": "che-e9e474",
+    "depth": 2,
+    "url": "http://localhost:8000/samples/shop/cart.html",
+    "title": "Your Cart \u2014 ShopKart",
+    "thought": {
+     "text": "Download app",
+     "score": 0.5,
+     "rationale": "no goal signal"
+    },
+    "status": "beam_pruned",
+    "children": [],
+    "pruned": [],
+    "goal_reached": false,
+    "value": 9.5,
+    "screenshot": "shots/che-5b366e.png",
+    "action": {
+     "tag": "button",
+     "text": "Download app",
+     "href": "",
+     "bbox": {
+      "x": 545,
+      "y": 415,
+      "w": 191,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 4
+   },
+   "che-b880f2": {
+    "id": "che-b880f2",
+    "parent": "che-e9e474",
+    "depth": 2,
+    "url": "http://localhost:8000/samples/shop/cart.html",
+    "title": "Your Cart \u2014 ShopKart",
+    "thought": {
+     "text": "Maybe later",
+     "score": 0.5,
+     "rationale": "no goal signal"
+    },
+    "status": "beam_pruned",
+    "children": [],
+    "pruned": [],
+    "goal_reached": false,
+    "value": 9.5,
+    "screenshot": "shots/che-b880f2.png",
+    "action": {
+     "tag": "button",
+     "text": "Maybe later",
+     "href": "",
+     "bbox": {
+      "x": 607,
+      "y": 487,
+      "w": 67,
+      "h": 18
+     },
+     "below_fold": false
+    },
+    "finding_count": 4
+   },
+   "che-ec6a32": {
+    "id": "che-ec6a32",
+    "parent": "che-66aa2c",
+    "depth": 3,
+    "url": "http://localhost:8000/samples/shop/confirmed.html",
+    "title": "Order confirmed \u2014 ShopKart",
+    "thought": {
+     "text": "Place order",
+     "score": 10,
+     "rationale": "+10 'place order'"
+    },
+    "status": "goal",
+    "children": [],
+    "pruned": [],
+    "goal_reached": true,
+    "value": 130.0,
+    "screenshot": "shots/che-ec6a32.png",
+    "action": {
+     "tag": "a",
+     "text": "Place order",
+     "href": "confirmed.html",
+     "bbox": {
+      "x": 209,
+      "y": 592,
+      "w": 166,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 0
+   },
+   "che-c40af1": {
+    "id": "che-c40af1",
+    "parent": "che-fc07ee",
+    "depth": 3,
+    "url": "http://localhost:8000/samples/shop/confirmed.html",
+    "title": "Order confirmed \u2014 ShopKart",
+    "thought": {
+     "text": "Place order",
+     "score": 10,
+     "rationale": "+10 'place order'"
+    },
+    "status": "goal",
+    "children": [],
+    "pruned": [],
+    "goal_reached": true,
+    "value": 129.0,
+    "screenshot": "shots/che-c40af1.png",
+    "action": {
+     "tag": "a",
+     "text": "Place order",
+     "href": "confirmed.html",
+     "bbox": {
+      "x": 209,
+      "y": 592,
+      "w": 166,
+      "h": 53
+     },
+     "below_fold": false
+    },
+    "finding_count": 0
+   }
+  }
+ },
+ "verdict": {
+  "label": "GUILTY",
+  "summary": "Basket Sneaking + Subscription Trap / Forced Continuity + Drip Pricing / Hidden Fees + False Urgency",
+  "manipulation_score": 100,
+  "grade": "F",
+  "guilty_count": 10,
+  "likely_count": 1
+ },
+ "finished_at": "2026-10-06T13:28:10.544827+00:00"
+}

@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Your Cart — ShopKart</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><span class="brand">ShopKart</span><a href="product.html">Electronics</a><a href="cart.html">Cart</a></header>
+<main><h1>Your cart</h1><div class="card"><table>
+<tr><td>AirWave Pro Noise-Cancelling Headphones</td><td>₹2,499</td></tr></table>
+<p><label><input type="checkbox" checked data-p="399"> Add 1-year Accidental Damage Protection (+₹399)</label></p>
+<p><label><input type="checkbox" checked data-p="20"> Donate ₹20 to Plant-a-Tree Foundation</label></p>
+<p><label><input type="checkbox" checked data-p="0"> Start ShopKart Plus free trial (fast delivery)</label><br>
+<span class="fine">Free for 30 days, then ₹299/month. Membership auto-renews and you will be charged automatically unless you cancel.</span></p>
+<h3>Subtotal: <span id="sub">₹2,918</span></h3>
+<a class="btn" href="checkout.html">Proceed to checkout</a> &nbsp; <a href="product.html" style="color:#6b7280">Continue shopping</a></div></main>
+<div class="modal-bg" id="pop"><div class="modal"><h2>📱 Get the ShopKart app</h2><p>Download our app for an extra 5% off. Offer valid today only!</p>
+<button class="btn" onclick="pop.remove()">Download app</button><br><br><button class="ghost" onclick="pop.remove()">Maybe later</button></div></div>
+<script>document.querySelectorAll('input[type=checkbox]').forEach(c=>c.onchange=()=>{let s=2499;document.querySelectorAll('input:checked').forEach(x=>s+=+x.dataset.p);sub.textContent='₹'+s.toLocaleString('en-IN')});</script>
+</body></html>

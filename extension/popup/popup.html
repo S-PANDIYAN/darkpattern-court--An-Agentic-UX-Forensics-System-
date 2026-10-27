@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DarkPattern Court</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-main-row">
+        <div class="logo-row">
+          <div class="logo-icon">
+            <!-- Modern Crisp Vector Shield with Justice Scales -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L3 6V11.5C3 17.1 6.8 22.3 12 23.5C17.2 22.3 21 17.1 21 11.5V6L12 2Z" fill="url(#shieldGrad)" stroke="#38bdf8" stroke-width="1.4"/>
+              <path d="M12 7V16M7.5 10.5L12 7L16.5 10.5M6.5 13.5L8 10.5M17.5 13.5L16 10.5M5.5 13.5C5.5 14.8 6.6 15.5 7.8 15.5C9 15.5 10.1 14.8 10.1 13.5H5.5ZM13.9 13.5C13.9 14.8 15 15.5 16.2 15.5C17.4 15.5 18.5 14.8 18.5 13.5H13.9Z" stroke="#ffffff" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="shieldGrad" x1="3" y1="2" x2="21" y2="23.5" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#0284c7" stop-opacity="0.85"/>
+                  <stop stop-color="#2563eb" stop-opacity="0.95"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h1 class="title">DarkPattern Court</h1>
+            <p class="subtitle">UX Forensics & Deception Scanner</p>
+          </div>
+        </div>
+        
+        <!-- Right Symbol: Live Active Status Badge -->
+        <div class="status-pill-right" id="statusPillRight">
+          <span class="active-dot"></span>
+          <span class="active-text">Active</span>
+        </div>
+      </div>
+
+      <!-- Model Badge -->
+      <div class="model-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">DistilBERT INT8 · Offline AI</span>
+      </div>
+    </div>
+
+    <!-- Status Card -->
+    <div class="status-card" id="statusCard">
+      <div class="status-icon" id="statusIcon">🔍</div>
+      <p class="status-text" id="statusText">Ready to audit this webpage</p>
+    </div>
+
+    <!-- Scan Button -->
+    <button class="scan-btn" id="scanBtn">
+      <span class="scan-btn-icon">⚡</span>
+      <span class="scan-btn-text">Audit Live Page</span>
+    </button>
+
+    <!-- Results Summary -->
+    <div class="results-section hidden" id="resultsSection">
+      <div class="results-header">
+        <span class="results-title">Deceptions Detected</span>
+        <span class="results-count" id="resultsCount">0</span>
+      </div>
+      <div class="results-breakdown" id="resultsBreakdown"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="action-btn" id="detailsBtn" disabled title="Open detailed forensic explanations">
+        📋 Insights
+      </button>
+      <button class="action-btn court" id="courtBtn" disabled title="Generate courtroom verdict & PDF">
+        ⚖️ Export PDF
+      </button>
+      <button class="action-btn secondary" id="clearBtn" disabled title="Clear highlights">
+        ✕ Clear
+      </button>
+    </div>
+
+    <!-- Court Verdict Card -->
+    <div class="court-card hidden" id="courtCard">
+      <div class="court-header">
+        <span class="court-badge" id="courtBadge">VERDICT READY</span>
+        <span class="court-score" id="courtScore">Score: --</span>
+      </div>
+      <div class="court-verdict-title" id="courtVerdict">⚖️ Filing indictment...</div>
+      <div class="court-actions">
+        <a id="courtPdfLink" href="#" target="_blank" class="court-btn-primary">📄 Download Evidence PDF</a>
+        <a id="courtHtmlLink" href="#" target="_blank" class="court-btn-secondary">🌐 Case Docket</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L3 6V11.5C3 17.1 6.8 22.3 12 23.5C17.2 22.3 21 17.1 21 11.5V6L12 2Z"/>
+        </svg>
+        <span><strong>DarkPattern Court</strong> · On-Device UX Forensics</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
