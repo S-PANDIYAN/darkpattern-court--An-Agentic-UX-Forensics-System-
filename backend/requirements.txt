@@ -1,0 +1,12 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+playwright>=1.44
+playwright-stealth>=2.0.0
+pydantic>=2.6
+Pillow>=10.0
+reportlab>=4.0
+openai>=1.0                 # OpenAI Python SDK — supports any OpenAI-compatible endpoint (Ollama, LLaVA, OpenRouter…)
+# Optional: OCR pipeline (also install the Tesseract binary: apt install tesseract-ocr / brew install tesseract)
+pytesseract>=0.3.10
+# Dev / tests
+pytest>=8.0

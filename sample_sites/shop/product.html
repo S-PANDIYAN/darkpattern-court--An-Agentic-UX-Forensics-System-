@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Noise-Cancelling Headphones — ShopKart</title><link rel="stylesheet" href="../style.css"></head>
+<body><header><span class="brand">ShopKart</span><a href="product.html">Electronics</a><a href="cart.html">Cart</a></header>
+<main><div class="row"><div style="width:380px;height:320px;background:#e2e8f0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:90px">🎧</div>
+<div style="flex:1"><h1>AirWave Pro Noise-Cancelling Headphones</h1>
+<div class="price">₹2,499 <span class="mrp" style="font-size:16px">M.R.P. ₹4,999</span></div>
+<p class="urgent">⚡ Deal ends in <span id="timer">10:00</span> — hurry!</p>
+<p class="urgent" id="stock"></p><p id="viewers" style="color:#7c3aed"></p>
+<p>40-hour battery · Active noise cancellation · Bluetooth 5.3</p>
+<a class="btn" href="cart.html">Add to cart</a> <a class="btn blue" href="cart.html">Buy now</a></div></div></main>
+<div class="modal-bg" id="pop"><div class="modal"><h2>Wait! Get 10% off 🎁</h2><p>Subscribe to our newsletter and get 10% off your first order.</p>
+<input placeholder="Email address" style="padding:12px;width:100%;margin-bottom:12px"><button class="btn" style="width:100%" onclick="pop.remove()">Subscribe</button><br><br>
+<button class="ghost" onclick="pop.remove()">No thanks, I don't like saving money</button></div></div>
+<script>
+// FAKE countdown: restarts from 10:00 on every page load
+let t=600;const el=document.getElementById('timer');setInterval(()=>{t=Math.max(0,t-1);el.textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')},1000);
+// FAKE scarcity & social proof: random numbers on every load
+const r=Date.now();document.getElementById('stock').textContent='Only '+(2+r%4)+' left in stock!';
+document.getElementById('viewers').textContent='👀 '+(12+(r>>3)%40)+' people are viewing this right now';
+</script></body></html>

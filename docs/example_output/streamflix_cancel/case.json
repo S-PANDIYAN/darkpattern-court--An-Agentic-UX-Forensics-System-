@@ -1,0 +1,1101 @@
+{
+ "id": "261006-60091",
+ "url": "http://localhost:8000/samples/subscription/account.html",
+ "goals": [
+  "cancel_subscription"
+ ],
+ "max_depth": 6,
+ "beam_width": 2,
+ "branching": 3,
+ "status": "complete",
+ "created_at": "2026-10-06T13:31:56.032533+00:00",
+ "log": [
+  "13:31:57 Simulating user goal: Cancel subscription",
+  "13:31:58 [cancel_subscription] root: Your Account \u2014 StreamFlix",
+  "13:32:02 [cancel_subscription] d1 'Manage membership' \u2192 Membership \u2014 StreamFlix (v=4.0)",
+  "13:32:06 [cancel_subscription] d2 'Cancel membership' \u2192 Tell us why \u2014 StreamFlix (v=14.0)",
+  "13:32:11 [cancel_subscription] d3 'Continue to cancel' \u2192 Special offer just for you \u2014 StreamFlix (v=23.0)",
+  "13:32:18 [cancel_subscription] d4 'No thanks, I prefer paying full price' \u2192 Are you sure? \u2014 StreamFlix (v=29.0)",
+  "13:32:26 [cancel_subscription] d5 'Confirm cancellation' \u2192 Cancelled \u2014 StreamFlix (v=139.0, GOAL)",
+  "13:32:26 Goal 'Cancel subscription': reached in 5 clicks; 6 states explored",
+  "13:32:27 Verdict: GUILTY \u2014 Obstruction / Roach Motel + Subscription Trap / Forced Continuity + Hidden Material Information + Interface Interference (Asymmetric Choice) (score 86)",
+  "13:32:27 Reports written (report.html, report.pdf)"
+ ],
+ "started_at": "2026-10-06T13:31:56.033554+00:00",
+ "capabilities": {
+  "ocr": false,
+  "vision_llm": false
+ },
+ "findings": [
+  {
+   "pattern": "hidden_information",
+   "description": "Material terms are displayed in fine print / low-contrast text.",
+   "confidence": 0.9,
+   "severity": 0.65,
+   "evidence": [
+    "Material term: \"Your free trial ends on 14 Oct. After that you will be charged \u20b9649/month automatically. Recurring billing continues unless you cancel.\"",
+    "Font size 10px, contrast 1.75:1"
+   ],
+   "source": "dom",
+   "node_id": "can-2fbd67",
+   "step": 0,
+   "url": "http://localhost:8000/samples/subscription/account.html",
+   "bbox": {
+    "x": 209,
+    "y": 273,
+    "w": 862,
+    "h": 14
+   },
+   "exhibit": "exhibits/E01.png",
+   "id": "E01"
+  },
+  {
+   "pattern": "forced_continuity",
+   "description": "Free trial converts to a paid recurring plan and the renewal terms are hidden.",
+   "confidence": 0.9,
+   "severity": 0.8,
+   "evidence": [
+    "Offer: \"Plan: Premium (free trial)\"",
+    "Renewal disclosure only in fine print: \"Your free trial ends on 14 Oct. After that you will be charged \u20b9649/month automatically. Recurring billing continues unless you cancel.\" (10px)"
+   ],
+   "source": "dom",
+   "node_id": "can-2fbd67",
+   "step": 0,
+   "url": "http://localhost:8000/samples/subscription/account.html",
+   "bbox": {
+    "x": 209,
+    "y": 273,
+    "w": 862,
+    "h": 14
+   },
+   "exhibit": "exhibits/E02.png",
+   "id": "E02"
+  },
+  {
+   "pattern": "interface_interference",
+   "description": "The option that benefits the business is visually dominant; the alternative is de-emphasised.",
+   "confidence": 0.97,
+   "severity": 0.55,
+   "evidence": [
+    "Preferred option \"Keep my plan\": 185\u00d753px, contrast 3.3:1, filled button",
+    "Alternative \"Cancel membership\": 107\u00d714px, contrast 2.54:1, text link, font 12px",
+    "Visual prominence ratio \u2248 38.1\u00d7",
+    "Alternative fails WCAG AA text contrast (4.5:1) with 2.54:1."
+   ],
+   "source": "dom",
+   "node_id": "can-9bbb50",
+   "step": 1,
+   "url": "http://localhost:8000/samples/subscription/membership.html",
+   "bbox": {
+    "x": 209,
+    "y": 230,
+    "w": 185,
+    "h": 88
+   },
+   "exhibit": "exhibits/E03.png",
+   "id": "E03"
+  },
+  {
+   "pattern": "hidden_information",
+   "description": "The cancellation / material control is rendered in small, low-contrast text.",
+   "confidence": 0.75,
+   "severity": 0.65,
+   "evidence": [
+    "Exit / material control: \"Cancel membership\"",
+    "Font size 12px, contrast 2.54:1"
+   ],
+   "source": "dom",
+   "node_id": "can-9bbb50",
+   "step": 1,
+   "url": "http://localhost:8000/samples/subscription/membership.html",
+   "bbox": {
+    "x": 209,
+    "y": 304,
+    "w": 107,
+    "h": 14
+   },
+   "exhibit": "exhibits/E04.png",
+   "id": "E04"
+  },
+  {
+   "pattern": "hidden_information",
+   "description": "The cancellation / material control is rendered in small, low-contrast text.",
+   "confidence": 0.75,
+   "severity": 0.65,
+   "evidence": [
+    "Exit / material control: \"Continue to cancel\"",
+    "Font size 13px, contrast 2.54:1"
+   ],
+   "source": "dom",
+   "node_id": "can-5d3cc1",
+   "step": 2,
+   "url": "http://localhost:8000/samples/subscription/cancel-survey.html",
+   "bbox": {
+    "x": 466,
+    "y": 327,
+    "w": 108,
+    "h": 15
+   },
+   "exhibit": "exhibits/E05.png",
+   "id": "E05"
+  },
+  {
+   "pattern": "false_urgency",
+   "description": "Time-pressure messaging found.",
+   "confidence": 0.55,
+   "severity": 0.6,
+   "evidence": [
+    "Urgency claim: \"Only \u20b9324/month. This offer expires when you leave this page.\""
+   ],
+   "source": "dom",
+   "node_id": "can-0351dd",
+   "step": 3,
+   "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+   "bbox": {
+    "x": 209,
+    "y": 248,
+    "w": 862,
+    "h": 22
+   },
+   "exhibit": "exhibits/E06.png",
+   "id": "E06"
+  },
+  {
+   "pattern": "confirmshaming",
+   "description": "Decline option is worded to shame the user.",
+   "confidence": 0.85,
+   "severity": 0.5,
+   "evidence": [
+    "Decline control reads: \"No thanks, I prefer paying full price\""
+   ],
+   "source": "dom",
+   "node_id": "can-0351dd",
+   "step": 3,
+   "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+   "bbox": {
+    "x": 547,
+    "y": 360,
+    "w": 185,
+    "h": 14
+   },
+   "exhibit": "exhibits/E07.png",
+   "id": "E07"
+  },
+  {
+   "pattern": "interface_interference",
+   "description": "The option that benefits the business is visually dominant; the alternative is de-emphasised.",
+   "confidence": 0.97,
+   "severity": 0.55,
+   "evidence": [
+    "Preferred option \"Accept offer\": 173\u00d753px, contrast 2.8:1, filled button",
+    "Alternative \"No thanks, I prefer paying full price\": 185\u00d714px, contrast 2.54:1, text link, font 12px",
+    "Visual prominence ratio \u2248 17.9\u00d7",
+    "Alternative fails WCAG AA text contrast (4.5:1) with 2.54:1."
+   ],
+   "source": "dom",
+   "node_id": "can-0351dd",
+   "step": 3,
+   "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+   "bbox": {
+    "x": 547,
+    "y": 286,
+    "w": 185,
+    "h": 88
+   },
+   "exhibit": "exhibits/E08.png",
+   "id": "E08"
+  },
+  {
+   "pattern": "hidden_information",
+   "description": "The cancellation / material control is rendered in small, low-contrast text.",
+   "confidence": 0.75,
+   "severity": 0.65,
+   "evidence": [
+    "Exit / material control: \"Confirm cancellation\"",
+    "Font size 12px, contrast 2.54:1"
+   ],
+   "source": "dom",
+   "node_id": "can-9e564e",
+   "step": 4,
+   "url": "http://localhost:8000/samples/subscription/cancel-confirm.html",
+   "bbox": {
+    "x": 209,
+    "y": 322,
+    "w": 109,
+    "h": 14
+   },
+   "exhibit": "exhibits/E09.png",
+   "id": "E09"
+  },
+  {
+   "pattern": "obstruction",
+   "description": "\"Cancel subscription\" takes 5 steps through 2 retention screen(s).",
+   "confidence": 0.97,
+   "severity": 0.8,
+   "evidence": [
+    "Step 1: clicked \"Manage membership\" \u2192 \"Membership \u2014 StreamFlix\" (control was below the fold at y=1332px \u2014 user had to scroll)",
+    "Step 2: clicked \"Cancel membership\" \u2192 \"Tell us why \u2014 StreamFlix\"",
+    "Step 3: clicked \"Continue to cancel\" \u2192 \"Special offer just for you \u2014 StreamFlix\" [retention / guilt screen]",
+    "Step 4: clicked \"No thanks, I prefer paying full price\" \u2192 \"Are you sure? \u2014 StreamFlix\" [retention / guilt screen]",
+    "Step 5: clicked \"Confirm cancellation\" \u2192 \"Cancelled \u2014 StreamFlix\"",
+    "5 clicks needed vs. a fair baseline of 2; 2 retention screen(s) on the way."
+   ],
+   "source": "path",
+   "node_id": "can-ee7d55",
+   "step": 5,
+   "url": "http://localhost:8000/samples/subscription/cancelled.html",
+   "bbox": null,
+   "exhibit": "exhibits/E10.png",
+   "id": "E10"
+  }
+ ],
+ "charges": [
+  {
+   "pattern": "obstruction",
+   "name": "Obstruction / Roach Motel",
+   "category": "Lead to unauthorized charges",
+   "india_ccpa": "Subscription Trap",
+   "charge": "Making cancellation, rejection or unsubscribing much harder than signing up.",
+   "confidence": 0.97,
+   "severity": 0.8,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "path"
+   ],
+   "exhibits": [
+    {
+     "pattern": "obstruction",
+     "description": "\"Cancel subscription\" takes 5 steps through 2 retention screen(s).",
+     "confidence": 0.97,
+     "severity": 0.8,
+     "evidence": [
+      "Step 1: clicked \"Manage membership\" \u2192 \"Membership \u2014 StreamFlix\" (control was below the fold at y=1332px \u2014 user had to scroll)",
+      "Step 2: clicked \"Cancel membership\" \u2192 \"Tell us why \u2014 StreamFlix\"",
+      "Step 3: clicked \"Continue to cancel\" \u2192 \"Special offer just for you \u2014 StreamFlix\" [retention / guilt screen]",
+      "Step 4: clicked \"No thanks, I prefer paying full price\" \u2192 \"Are you sure? \u2014 StreamFlix\" [retention / guilt screen]",
+      "Step 5: clicked \"Confirm cancellation\" \u2192 \"Cancelled \u2014 StreamFlix\"",
+      "5 clicks needed vs. a fair baseline of 2; 2 retention screen(s) on the way."
+     ],
+     "source": "path",
+     "node_id": "can-ee7d55",
+     "step": 5,
+     "url": "http://localhost:8000/samples/subscription/cancelled.html",
+     "bbox": null,
+     "exhibit": "exhibits/E10.png",
+     "id": "E10"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-click-to-cancel",
+     "source": "FTC Negative Option ('Click-to-Cancel') Rule, 2024 (vacated by the U.S. 8th Circuit, July 2025)",
+     "url": "https://www.ftc.gov/legal-library/browse/rules/negative-option-rule",
+     "excerpt": "The FTC's 2024 amended Negative Option Rule would have required that cancelling be as easy as signing up and limited forced save attempts. A federal appeals court vacated the rule on procedural grounds in July 2025, but ROSCA and Section 5 still apply, and the FTC continues to bring cases against hard-to-cancel subscriptions (for example its 2025 settlement with Amazon over Prime enrolment and cancellation)."
+    },
+    {
+     "id": "rosca",
+     "source": "Restore Online Shoppers' Confidence Act (ROSCA), 15 U.S.C. \u00a7\u00a7 8401\u20138405",
+     "url": "https://www.ftc.gov/legal-library/browse/statutes/restore-online-shoppers-confidence-act",
+     "excerpt": "ROSCA prohibits charging consumers for goods or services sold online through a negative option feature unless the seller (1) clearly and conspicuously discloses all material terms before obtaining billing information, (2) obtains the consumer's express informed consent before charging, and (3) provides simple mechanisms for the consumer to stop recurring charges."
+    },
+    {
+     "id": "ftc-epic",
+     "source": "FTC v. Epic Games (2022\u20132023)",
+     "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/192-3203-epic-games-inc-matter",
+     "excerpt": "In the Epic Games (Fortnite) matter the FTC alleged that counter-intuitive, inconsistent button configurations caused players to make unwanted purchases with a single button press, and that refunds were made hard to obtain. Epic agreed to pay $245 million in refunds \u2014 an example of design-based unauthorized charges."
+    }
+   ],
+   "count_no": "Count 1"
+  },
+  {
+   "pattern": "forced_continuity",
+   "name": "Subscription Trap / Forced Continuity",
+   "category": "Lead to unauthorized charges",
+   "india_ccpa": "Subscription Trap",
+   "charge": "Converting a free trial into a paid, auto-renewing plan without clear, conspicuous disclosure.",
+   "confidence": 0.9,
+   "severity": 0.8,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "forced_continuity",
+     "description": "Free trial converts to a paid recurring plan and the renewal terms are hidden.",
+     "confidence": 0.9,
+     "severity": 0.8,
+     "evidence": [
+      "Offer: \"Plan: Premium (free trial)\"",
+      "Renewal disclosure only in fine print: \"Your free trial ends on 14 Oct. After that you will be charged \u20b9649/month automatically. Recurring billing continues unless you cancel.\" (10px)"
+     ],
+     "source": "dom",
+     "node_id": "can-2fbd67",
+     "step": 0,
+     "url": "http://localhost:8000/samples/subscription/account.html",
+     "bbox": {
+      "x": 209,
+      "y": 273,
+      "w": 862,
+      "h": 14
+     },
+     "exhibit": "exhibits/E02.png",
+     "id": "E02"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-click-to-cancel",
+     "source": "FTC Negative Option ('Click-to-Cancel') Rule, 2024 (vacated by the U.S. 8th Circuit, July 2025)",
+     "url": "https://www.ftc.gov/legal-library/browse/rules/negative-option-rule",
+     "excerpt": "The FTC's 2024 amended Negative Option Rule would have required that cancelling be as easy as signing up and limited forced save attempts. A federal appeals court vacated the rule on procedural grounds in July 2025, but ROSCA and Section 5 still apply, and the FTC continues to bring cases against hard-to-cancel subscriptions (for example its 2025 settlement with Amazon over Prime enrolment and cancellation)."
+    },
+    {
+     "id": "rosca",
+     "source": "Restore Online Shoppers' Confidence Act (ROSCA), 15 U.S.C. \u00a7\u00a7 8401\u20138405",
+     "url": "https://www.ftc.gov/legal-library/browse/statutes/restore-online-shoppers-confidence-act",
+     "excerpt": "ROSCA prohibits charging consumers for goods or services sold online through a negative option feature unless the seller (1) clearly and conspicuously discloses all material terms before obtaining billing information, (2) obtains the consumer's express informed consent before charging, and (3) provides simple mechanisms for the consumer to stop recurring charges."
+    },
+    {
+     "id": "ftc-negative-option-2021",
+     "source": "FTC Enforcement Policy Statement Regarding Negative Option Marketing (Oct 2021)",
+     "url": "https://www.ftc.gov/legal-library/browse/federal-register-notices/enforcement-policy-statement-regarding-negative-option-marketing",
+     "excerpt": "The FTC's policy statement says negative option sellers should disclose material terms clearly and conspicuously, obtain unambiguous affirmative consent, and provide cancellation mechanisms that are at least as easy to use as the method used to sign up. Cancellation should not require the consumer to navigate obstacles such as repeated save attempts."
+    }
+   ],
+   "count_no": "Count 2"
+  },
+  {
+   "pattern": "hidden_information",
+   "name": "Hidden Material Information",
+   "category": "Hide or delay material information",
+   "india_ccpa": "Interface Interference",
+   "charge": "Placing material terms (renewal, fees, cancellation) in tiny or low-contrast text.",
+   "confidence": 1.0,
+   "severity": 0.65,
+   "verdict": "GUILTY",
+   "count": 4,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "hidden_information",
+     "description": "Material terms are displayed in fine print / low-contrast text.",
+     "confidence": 0.9,
+     "severity": 0.65,
+     "evidence": [
+      "Material term: \"Your free trial ends on 14 Oct. After that you will be charged \u20b9649/month automatically. Recurring billing continues unless you cancel.\"",
+      "Font size 10px, contrast 1.75:1"
+     ],
+     "source": "dom",
+     "node_id": "can-2fbd67",
+     "step": 0,
+     "url": "http://localhost:8000/samples/subscription/account.html",
+     "bbox": {
+      "x": 209,
+      "y": 273,
+      "w": 862,
+      "h": 14
+     },
+     "exhibit": "exhibits/E01.png",
+     "id": "E01"
+    },
+    {
+     "pattern": "hidden_information",
+     "description": "The cancellation / material control is rendered in small, low-contrast text.",
+     "confidence": 0.75,
+     "severity": 0.65,
+     "evidence": [
+      "Exit / material control: \"Cancel membership\"",
+      "Font size 12px, contrast 2.54:1"
+     ],
+     "source": "dom",
+     "node_id": "can-9bbb50",
+     "step": 1,
+     "url": "http://localhost:8000/samples/subscription/membership.html",
+     "bbox": {
+      "x": 209,
+      "y": 304,
+      "w": 107,
+      "h": 14
+     },
+     "exhibit": "exhibits/E04.png",
+     "id": "E04"
+    },
+    {
+     "pattern": "hidden_information",
+     "description": "The cancellation / material control is rendered in small, low-contrast text.",
+     "confidence": 0.75,
+     "severity": 0.65,
+     "evidence": [
+      "Exit / material control: \"Continue to cancel\"",
+      "Font size 13px, contrast 2.54:1"
+     ],
+     "source": "dom",
+     "node_id": "can-5d3cc1",
+     "step": 2,
+     "url": "http://localhost:8000/samples/subscription/cancel-survey.html",
+     "bbox": {
+      "x": 466,
+      "y": 327,
+      "w": 108,
+      "h": 15
+     },
+     "exhibit": "exhibits/E05.png",
+     "id": "E05"
+    },
+    {
+     "pattern": "hidden_information",
+     "description": "The cancellation / material control is rendered in small, low-contrast text.",
+     "confidence": 0.75,
+     "severity": 0.65,
+     "evidence": [
+      "Exit / material control: \"Confirm cancellation\"",
+      "Font size 12px, contrast 2.54:1"
+     ],
+     "source": "dom",
+     "node_id": "can-9e564e",
+     "step": 4,
+     "url": "http://localhost:8000/samples/subscription/cancel-confirm.html",
+     "bbox": {
+      "x": 209,
+      "y": 322,
+      "w": 109,
+      "h": 14
+     },
+     "exhibit": "exhibits/E09.png",
+     "id": "E09"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-hide-info",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Hide or delay material information",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that hide or delay disclosure of material information include drip pricing, where mandatory fees are revealed only after the consumer has started the purchase process, and burying key terms in fine print, behind hyperlinks or in low-contrast text. Material information must be disclosed clearly and conspicuously, before the consumer commits."
+    },
+    {
+     "id": "wcag-143",
+     "source": "W3C WCAG 2.2 \u2014 Success Criterion 1.4.3 Contrast (Minimum)",
+     "url": "https://www.w3.org/TR/WCAG22/#contrast-minimum",
+     "excerpt": "Text should have a contrast ratio of at least 4.5:1 against its background (3:1 for large text). Used here as an objective, measurable yardstick for whether a disclosure or alternative option is 'clear and conspicuous'."
+    },
+    {
+     "id": "ftc-act-s5",
+     "source": "FTC Act, Section 5 (15 U.S.C. \u00a7 45)",
+     "url": "https://www.ftc.gov/legal-library/browse/statutes/federal-trade-commission-act",
+     "excerpt": "Section 5 of the FTC Act declares unlawful unfair or deceptive acts or practices in or affecting commerce. A practice is deceptive if a representation, omission or practice is likely to mislead a consumer acting reasonably and is material. The net impression of an interface, not only its literal text, is evaluated."
+    }
+   ],
+   "count_no": "Count 3"
+  },
+  {
+   "pattern": "interface_interference",
+   "name": "Interface Interference (Asymmetric Choice)",
+   "category": "Obscure or subvert privacy choices",
+   "india_ccpa": "Interface Interference",
+   "charge": "Making the option that benefits the business visually dominant while the alternative is hidden or de-emphasised.",
+   "confidence": 1.0,
+   "severity": 0.55,
+   "verdict": "GUILTY",
+   "count": 2,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "interface_interference",
+     "description": "The option that benefits the business is visually dominant; the alternative is de-emphasised.",
+     "confidence": 0.97,
+     "severity": 0.55,
+     "evidence": [
+      "Preferred option \"Keep my plan\": 185\u00d753px, contrast 3.3:1, filled button",
+      "Alternative \"Cancel membership\": 107\u00d714px, contrast 2.54:1, text link, font 12px",
+      "Visual prominence ratio \u2248 38.1\u00d7",
+      "Alternative fails WCAG AA text contrast (4.5:1) with 2.54:1."
+     ],
+     "source": "dom",
+     "node_id": "can-9bbb50",
+     "step": 1,
+     "url": "http://localhost:8000/samples/subscription/membership.html",
+     "bbox": {
+      "x": 209,
+      "y": 230,
+      "w": 185,
+      "h": 88
+     },
+     "exhibit": "exhibits/E03.png",
+     "id": "E03"
+    },
+    {
+     "pattern": "interface_interference",
+     "description": "The option that benefits the business is visually dominant; the alternative is de-emphasised.",
+     "confidence": 0.97,
+     "severity": 0.55,
+     "evidence": [
+      "Preferred option \"Accept offer\": 173\u00d753px, contrast 2.8:1, filled button",
+      "Alternative \"No thanks, I prefer paying full price\": 185\u00d714px, contrast 2.54:1, text link, font 12px",
+      "Visual prominence ratio \u2248 17.9\u00d7",
+      "Alternative fails WCAG AA text contrast (4.5:1) with 2.54:1."
+     ],
+     "source": "dom",
+     "node_id": "can-0351dd",
+     "step": 3,
+     "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+     "bbox": {
+      "x": 547,
+      "y": 286,
+      "w": 185,
+      "h": 88
+     },
+     "exhibit": "exhibits/E08.png",
+     "id": "E08"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-privacy",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Obscure or subvert privacy choices",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that subvert privacy choices include defaulting users into data sharing, making the privacy-protective option harder to find or less visually prominent than the option that shares more data ('accept all' bright, 'reject' hidden), confusing toggles and double-negative wording, and requiring repeated steps to decline. Choices should be presented neutrally and symmetrically."
+    },
+    {
+     "id": "ccpa-regs-7004",
+     "source": "California CCPA Regulations, 11 CCR \u00a7 7004 (symmetry in choice)",
+     "url": "https://cppa.ca.gov/regulations/",
+     "excerpt": "Methods for submitting privacy requests and obtaining consent must use easy-to-understand language and symmetry in choice: the path to a more privacy-protective option shall not be longer or more difficult than the path to a less protective option. Confirmshaming and pre-selected options are cited as non-compliant; agreement obtained through dark patterns is not consent."
+    },
+    {
+     "id": "eu-dsa-25",
+     "source": "EU Digital Services Act, Article 25 (online interface design)",
+     "url": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj",
+     "excerpt": "Providers of online platforms shall not design, organise or operate their interfaces in a way that deceives or manipulates recipients or otherwise materially distorts or impairs their ability to make free and informed decisions \u2014 for example giving more prominence to certain choices, repeatedly requesting a choice already made, or making cancellation more difficult than subscribing."
+    }
+   ],
+   "count_no": "Count 4"
+  },
+  {
+   "pattern": "confirmshaming",
+   "name": "Confirmshaming",
+   "category": "Induce false beliefs",
+   "india_ccpa": "Confirm Shaming",
+   "charge": "Wording the decline option to guilt or shame the user into accepting.",
+   "confidence": 0.85,
+   "severity": 0.5,
+   "verdict": "GUILTY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "confirmshaming",
+     "description": "Decline option is worded to shame the user.",
+     "confidence": 0.85,
+     "severity": 0.5,
+     "evidence": [
+      "Decline control reads: \"No thanks, I prefer paying full price\""
+     ],
+     "source": "dom",
+     "node_id": "can-0351dd",
+     "step": 3,
+     "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+     "bbox": {
+      "x": 547,
+      "y": 360,
+      "w": 185,
+      "h": 14
+     },
+     "exhibit": "exhibits/E07.png",
+     "id": "E07"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "in-ccpa-definitions",
+     "source": "India \u2014 CCPA Dark Patterns Guidelines 2023, Annexure 1 (paraphrased)",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "False urgency: falsely stating or implying urgency or scarcity to induce an immediate purchase. Basket sneaking: adding items, donations or charges at checkout without the user's consent. Confirm shaming: using phrases, video or audio to create fear, shame or guilt to nudge the user. Subscription trap: making cancellation impossible or complex, hiding the cancel option, or forcing payment details for a free trial. Interface interference: highlighting certain information and obscuring other relevant information to misdirect the user. Drip pricing: not revealing price elements upfront or revealing them surreptitiously. Nagging: repeated requests and interactions. Trick question: confusing or vague language to misguide the user."
+    },
+    {
+     "id": "ccpa-regs-7004",
+     "source": "California CCPA Regulations, 11 CCR \u00a7 7004 (symmetry in choice)",
+     "url": "https://cppa.ca.gov/regulations/",
+     "excerpt": "Methods for submitting privacy requests and obtaining consent must use easy-to-understand language and symmetry in choice: the path to a more privacy-protective option shall not be longer or more difficult than the path to a less protective option. Confirmshaming and pre-selected options are cited as non-compliant; agreement obtained through dark patterns is not consent."
+    },
+    {
+     "id": "ftc-dp-privacy",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Obscure or subvert privacy choices",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Design elements that subvert privacy choices include defaulting users into data sharing, making the privacy-protective option harder to find or less visually prominent than the option that shares more data ('accept all' bright, 'reject' hidden), confusing toggles and double-negative wording, and requiring repeated steps to decline. Choices should be presented neutrally and symmetrically."
+    }
+   ],
+   "count_no": "Count 5"
+  },
+  {
+   "pattern": "false_urgency",
+   "name": "False Urgency",
+   "category": "Induce false beliefs",
+   "india_ccpa": "False Urgency",
+   "charge": "Fabricating time pressure (countdown timers / limited-time claims) to rush the user.",
+   "confidence": 0.55,
+   "severity": 0.6,
+   "verdict": "LIKELY",
+   "count": 1,
+   "sources": [
+    "dom"
+   ],
+   "exhibits": [
+    {
+     "pattern": "false_urgency",
+     "description": "Time-pressure messaging found.",
+     "confidence": 0.55,
+     "severity": 0.6,
+     "evidence": [
+      "Urgency claim: \"Only \u20b9324/month. This offer expires when you leave this page.\""
+     ],
+     "source": "dom",
+     "node_id": "can-0351dd",
+     "step": 3,
+     "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+     "bbox": {
+      "x": 209,
+      "y": 248,
+      "w": 862,
+      "h": 22
+     },
+     "exhibit": "exhibits/E06.png",
+     "id": "E06"
+    }
+   ],
+   "authorities": [
+    {
+     "id": "ftc-dp-false-beliefs",
+     "source": "FTC Staff Report \u2014 Bringing Dark Patterns to Light (2022), Induce false beliefs",
+     "url": "https://www.ftc.gov/reports/bringing-dark-patterns-light",
+     "excerpt": "Examples of design elements that induce false beliefs include false claims of scarcity (low stock messages), false claims of urgency such as countdown timers that reset or that are unrelated to any real deadline, fake activity messages and fabricated social proof such as fake reviews or 'X people are viewing this' notices. The FTC Act prohibits such deceptive claims."
+    },
+    {
+     "id": "eu-ucpd-annex",
+     "source": "EU Unfair Commercial Practices Directive 2005/29/EC, Annex I point 7",
+     "url": "https://eur-lex.europa.eu/eli/dir/2005/29/oj",
+     "excerpt": "Falsely stating that a product will only be available for a very limited time, or only on particular terms for a very limited time, in order to elicit an immediate decision and deprive consumers of time to make an informed choice, is a commercial practice considered unfair in all circumstances."
+    },
+    {
+     "id": "in-ccpa-definitions",
+     "source": "India \u2014 CCPA Dark Patterns Guidelines 2023, Annexure 1 (paraphrased)",
+     "url": "https://consumeraffairs.nic.in/",
+     "excerpt": "False urgency: falsely stating or implying urgency or scarcity to induce an immediate purchase. Basket sneaking: adding items, donations or charges at checkout without the user's consent. Confirm shaming: using phrases, video or audio to create fear, shame or guilt to nudge the user. Subscription trap: making cancellation impossible or complex, hiding the cancel option, or forcing payment details for a free trial. Interface interference: highlighting certain information and obscuring other relevant information to misdirect the user. Drip pricing: not revealing price elements upfront or revealing them surreptitiously. Nagging: repeated requests and interactions. Trick question: confusing or vague language to misguide the user."
+    }
+   ],
+   "count_no": "Count 6"
+  }
+ ],
+ "journeys": [
+  {
+   "goal": "cancel_subscription",
+   "label": "Cancel subscription",
+   "reached": true,
+   "clicks": 5,
+   "path": [
+    "can-2fbd67",
+    "can-9bbb50",
+    "can-5d3cc1",
+    "can-0351dd",
+    "can-9e564e",
+    "can-ee7d55"
+   ],
+   "steps": [
+    {
+     "step": 0,
+     "node_id": "can-2fbd67",
+     "url": "http://localhost:8000/samples/subscription/account.html",
+     "title": "Your Account \u2014 StreamFlix",
+     "testimony": "User opened \"Your Account \u2014 StreamFlix\" intending to: Cancel subscription.",
+     "observations": [
+      "Hidden Material Information: Material term: \"Your free trial ends on 14 Oct. After that you will be charged \u20b9649/month automatically. Recurring billing continues unless you cancel.\"",
+      "Subscription Trap / Forced Continuity: Offer: \"Plan: Premium (free trial)\""
+     ],
+     "screenshot": "shots/can-2fbd67.png"
+    },
+    {
+     "step": 1,
+     "node_id": "can-9bbb50",
+     "url": "http://localhost:8000/samples/subscription/membership.html",
+     "title": "Membership \u2014 StreamFlix",
+     "testimony": "User clicked \"Manage membership\" \u2192 arrived at \"Membership \u2014 StreamFlix\". The control was hidden below the fold (y=1332px) and required scrolling.",
+     "observations": [
+      "Interface Interference (Asymmetric Choice): Preferred option \"Keep my plan\": 185\u00d753px, contrast 3.3:1, filled button",
+      "Hidden Material Information: Exit / material control: \"Cancel membership\""
+     ],
+     "screenshot": "shots/can-9bbb50.png"
+    },
+    {
+     "step": 2,
+     "node_id": "can-5d3cc1",
+     "url": "http://localhost:8000/samples/subscription/cancel-survey.html",
+     "title": "Tell us why \u2014 StreamFlix",
+     "testimony": "User clicked \"Cancel membership\" \u2192 arrived at \"Tell us why \u2014 StreamFlix\".",
+     "observations": [
+      "Hidden Material Information: Exit / material control: \"Continue to cancel\""
+     ],
+     "screenshot": "shots/can-5d3cc1.png"
+    },
+    {
+     "step": 3,
+     "node_id": "can-0351dd",
+     "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+     "title": "Special offer just for you \u2014 StreamFlix",
+     "testimony": "User clicked \"Continue to cancel\" \u2192 arrived at \"Special offer just for you \u2014 StreamFlix\".",
+     "observations": [
+      "False Urgency: Urgency claim: \"Only \u20b9324/month. This offer expires when you leave this page.\"",
+      "Confirmshaming: Decline control reads: \"No thanks, I prefer paying full price\"",
+      "Interface Interference (Asymmetric Choice): Preferred option \"Accept offer\": 173\u00d753px, contrast 2.8:1, filled button"
+     ],
+     "screenshot": "shots/can-0351dd.png"
+    },
+    {
+     "step": 4,
+     "node_id": "can-9e564e",
+     "url": "http://localhost:8000/samples/subscription/cancel-confirm.html",
+     "title": "Are you sure? \u2014 StreamFlix",
+     "testimony": "User clicked \"No thanks, I prefer paying full price\" \u2192 arrived at \"Are you sure? \u2014 StreamFlix\".",
+     "observations": [
+      "Hidden Material Information: Exit / material control: \"Confirm cancellation\""
+     ],
+     "screenshot": "shots/can-9e564e.png"
+    },
+    {
+     "step": 5,
+     "node_id": "can-ee7d55",
+     "url": "http://localhost:8000/samples/subscription/cancelled.html",
+     "title": "Cancelled \u2014 StreamFlix",
+     "testimony": "User clicked \"Confirm cancellation\" \u2192 arrived at \"Cancelled \u2014 StreamFlix\".",
+     "observations": [],
+     "screenshot": "shots/can-ee7d55.png"
+    },
+    {
+     "step": 6,
+     "node_id": null,
+     "testimony": "Goal reached.",
+     "observations": [],
+     "url": null,
+     "title": null,
+     "screenshot": null
+    }
+   ],
+   "alternatives": []
+  }
+ ],
+ "trees": {
+  "cancel_subscription": {
+   "can-2fbd67": {
+    "id": "can-2fbd67",
+    "parent": null,
+    "depth": 0,
+    "url": "http://localhost:8000/samples/subscription/account.html",
+    "title": "Your Account \u2014 StreamFlix",
+    "thought": {
+     "text": "Open start page",
+     "score": 0,
+     "rationale": "start"
+    },
+    "status": "expanded",
+    "children": [
+     "can-9bbb50"
+    ],
+    "pruned": [
+     {
+      "text": "Account",
+      "score": -1,
+      "reason": "+3 'account', -4 returns to an already visited page"
+     },
+     {
+      "text": "Home",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Browse",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Help centre",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Upgrade to Premium 4K",
+      "score": -10.0,
+      "reason": "-6 'upgrade', -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 0.0,
+    "screenshot": "shots/can-2fbd67.png",
+    "action": null,
+    "finding_count": 2
+   },
+   "can-9bbb50": {
+    "id": "can-9bbb50",
+    "parent": "can-2fbd67",
+    "depth": 1,
+    "url": "http://localhost:8000/samples/subscription/membership.html",
+    "title": "Membership \u2014 StreamFlix",
+    "thought": {
+     "text": "Manage membership",
+     "score": 4,
+     "rationale": "+4 'membership'"
+    },
+    "status": "expanded",
+    "children": [
+     "can-5d3cc1"
+    ],
+    "pruned": [
+     {
+      "text": "Account",
+      "score": -1,
+      "reason": "+3 'account', -4 returns to an already visited page"
+     },
+     {
+      "text": "Home",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Browse",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Keep my plan",
+      "score": -12.0,
+      "reason": "-8 'keep', -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 4.0,
+    "screenshot": "shots/can-9bbb50.png",
+    "action": {
+     "tag": "a",
+     "text": "Manage membership",
+     "href": "membership.html",
+     "bbox": {
+      "x": 259,
+      "y": 1332,
+      "w": 103,
+      "h": 12
+     },
+     "below_fold": true
+    },
+    "finding_count": 2
+   },
+   "can-5d3cc1": {
+    "id": "can-5d3cc1",
+    "parent": "can-9bbb50",
+    "depth": 2,
+    "url": "http://localhost:8000/samples/subscription/cancel-survey.html",
+    "title": "Tell us why \u2014 StreamFlix",
+    "thought": {
+     "text": "Cancel membership",
+     "score": 10,
+     "rationale": "+10 'cancel membership', +7 'cancel', +4 'membership'"
+    },
+    "status": "expanded",
+    "children": [
+     "can-0351dd"
+    ],
+    "pruned": [
+     {
+      "text": "Account",
+      "score": -1,
+      "reason": "+3 'account', -4 returns to an already visited page"
+     },
+     {
+      "text": "Home",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Browse",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Stay with StreamFlix",
+      "score": -10.0,
+      "reason": "-6 'stay', -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 14.0,
+    "screenshot": "shots/can-5d3cc1.png",
+    "action": {
+     "tag": "a",
+     "text": "Cancel membership",
+     "href": "cancel-survey.html",
+     "bbox": {
+      "x": 209,
+      "y": 304,
+      "w": 107,
+      "h": 14
+     },
+     "below_fold": false
+    },
+    "finding_count": 1
+   },
+   "can-0351dd": {
+    "id": "can-0351dd",
+    "parent": "can-5d3cc1",
+    "depth": 3,
+    "url": "http://localhost:8000/samples/subscription/cancel-offer.html",
+    "title": "Special offer just for you \u2014 StreamFlix",
+    "thought": {
+     "text": "Continue to cancel",
+     "score": 9,
+     "rationale": "+9 'continue to cancel', +7 'cancel', +2 'continue'"
+    },
+    "status": "expanded",
+    "children": [
+     "can-9e564e"
+    ],
+    "pruned": [
+     {
+      "text": "Account",
+      "score": -1,
+      "reason": "+3 'account', -4 returns to an already visited page"
+     },
+     {
+      "text": "Home",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Browse",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Accept offer",
+      "score": -13.0,
+      "reason": "-9 'accept offer', -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 23.0,
+    "screenshot": "shots/can-0351dd.png",
+    "action": {
+     "tag": "a",
+     "text": "Continue to cancel",
+     "href": "cancel-offer.html",
+     "bbox": {
+      "x": 466,
+      "y": 327,
+      "w": 108,
+      "h": 15
+     },
+     "below_fold": false
+    },
+    "finding_count": 3
+   },
+   "can-9e564e": {
+    "id": "can-9e564e",
+    "parent": "can-0351dd",
+    "depth": 4,
+    "url": "http://localhost:8000/samples/subscription/cancel-confirm.html",
+    "title": "Are you sure? \u2014 StreamFlix",
+    "thought": {
+     "text": "No thanks, I prefer paying full price",
+     "score": 6,
+     "rationale": "+6 'no thanks', +5 'full price'"
+    },
+    "status": "expanded",
+    "children": [
+     "can-ee7d55"
+    ],
+    "pruned": [
+     {
+      "text": "Account",
+      "score": -1,
+      "reason": "+3 'account', -4 returns to an already visited page"
+     },
+     {
+      "text": "Home",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Browse",
+      "score": -3.9,
+      "reason": "no goal signal, -4 returns to an already visited page"
+     },
+     {
+      "text": "Go back to StreamFlix",
+      "score": -9.0,
+      "reason": "-5 'go back', -4 returns to an already visited page"
+     }
+    ],
+    "goal_reached": false,
+    "value": 29.0,
+    "screenshot": "shots/can-9e564e.png",
+    "action": {
+     "tag": "a",
+     "text": "No thanks, I prefer paying full price",
+     "href": "cancel-confirm.html",
+     "bbox": {
+      "x": 547,
+      "y": 360,
+      "w": 185,
+      "h": 14
+     },
+     "below_fold": false
+    },
+    "finding_count": 1
+   },
+   "can-ee7d55": {
+    "id": "can-ee7d55",
+    "parent": "can-9e564e",
+    "depth": 5,
+    "url": "http://localhost:8000/samples/subscription/cancelled.html",
+    "title": "Cancelled \u2014 StreamFlix",
+    "thought": {
+     "text": "Confirm cancellation",
+     "score": 10,
+     "rationale": "+10 'confirm cancel', +7 'cancel'"
+    },
+    "status": "goal",
+    "children": [],
+    "pruned": [],
+    "goal_reached": true,
+    "value": 139.0,
+    "screenshot": "shots/can-ee7d55.png",
+    "action": {
+     "tag": "a",
+     "text": "Confirm cancellation",
+     "href": "cancelled.html",
+     "bbox": {
+      "x": 209,
+      "y": 322,
+      "w": 109,
+      "h": 14
+     },
+     "below_fold": false
+    },
+    "finding_count": 0
+   }
+  }
+ },
+ "verdict": {
+  "label": "GUILTY",
+  "summary": "Obstruction / Roach Motel + Subscription Trap / Forced Continuity + Hidden Material Information + Interface Interference (Asymmetric Choice)",
+  "manipulation_score": 86,
+  "grade": "F",
+  "guilty_count": 5,
+  "likely_count": 1
+ },
+ "finished_at": "2026-10-06T13:32:27.583649+00:00"
+}
