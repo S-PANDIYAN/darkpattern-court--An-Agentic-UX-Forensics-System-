@@ -4,8 +4,17 @@ import re
 from ..models import Finding
 from ..utils import prices, short
 
-FEE_RX = re.compile(r"((?:service|convenience|handling|processing|booking|platform|packaging|admin\w*|resort|delivery partner|small order)\s+(?:fee|charge)s?)[^\n₹$€£]{0,30}((?:₹|rs\.?|\$|€|£)\s?\d[\d,]*(?:\.\d{1,2})?)", re.I)
-TOTAL_RX = re.compile(r"(?:grand\s+)?total[^\n₹$€£\d]{0,30}((?:₹|rs\.?|\$|€|£)\s?\d[\d,]*(?:\.\d{1,2})?)", re.I)
+FEE_RX = re.compile(
+    r"((?:service|convenience|handling|processing|booking|platform|packaging|restaurant packaging|surge|rain|small order|delivery partner|delivery|admin\w*|resort)\s+(?:fee|charge)s?)"
+    r"[^\n₹$€£a-z0-9]{0,30}"
+    r"((?:₹|rs\.?|\$|€|£|inr|usd)\s?\d[\d,]*(?:\.\d{1,2})?)",
+    re.I
+)
+TOTAL_RX = re.compile(
+    r"(?:grand\s+)?total[^\n₹$€£a-z0-9]{0,30}"
+    r"((?:₹|rs\.?|\$|€|£|inr|usd)\s?\d[\d,]*(?:\.\d{1,2})?)",
+    re.I
+)
 RETENTION_RX = re.compile(r"before you go|are you sure|wait!?|special offer|\d+\s?% off|discount|we'?ll miss you|reconsider|lose (all|your)|stay with us", re.I)
 
 
@@ -71,3 +80,40 @@ def nagging(path: list[dict]) -> list[Finding]:
         return [_f("nagging", f"Pop-ups interrupted the user on {len(overlay_steps)} of {len(path)} screens.", 0.75, 0.35,
                    [f'Step {n["depth"]}: overlay on "{short(n["snapshot"]["title"],50)}"' for n in overlay_steps], overlay_steps[-1])]
     return []
+
+
+def audit_policy_clauses(policy_doc: dict) -> list[Finding]:
+    """Scan Tavily-extracted Terms of Service or Cancellation FAQ for unfair contract traps."""
+    if not policy_doc or not policy_doc.get("text"):
+        return []
+    text = policy_doc["text"]
+    url = policy_doc.get("url", "")
+    out = []
+
+    # 1. Phone-only cancellation trap (Roach motel in fine print)
+    phone_cancel = re.search(r"\b(cancel|terminate)\b[^\.\n]{0,80}\b(only by (calling|phone)|call our customer service|call 1-\d+|call us at)\b", text, re.I)
+    if phone_cancel:
+        out.append(Finding(
+            pattern="obstruction",
+            description="Fine print requires phone call to cancel a digital subscription (asymmetric exit).",
+            confidence=0.88,
+            severity=0.85,
+            evidence=[f'Policy clause: "{phone_cancel.group(0)}"'],
+            source="policy_doc",
+            url=url,
+        ))
+
+    # 2. Forced renewal without notification / non-refundable fees
+    auto_trap = re.search(r"\b(automatically renews?|recurring charge)[^\.\n]{0,100}\b(non-refundable|cannot be refunded|no refunds?)\b", text, re.I)
+    if auto_trap:
+        out.append(Finding(
+            pattern="forced_continuity",
+            description="Automatic recurring billing with strict non-refundable terms buried in fine print.",
+            confidence=0.82,
+            severity=0.80,
+            evidence=[f'Policy clause: "{auto_trap.group(0)}"'],
+            source="policy_doc",
+            url=url,
+        ))
+
+    return out
