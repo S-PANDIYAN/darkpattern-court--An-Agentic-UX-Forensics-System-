@@ -10,7 +10,7 @@ from pathlib import Path
 
 from . import config
 from .agent import browser as B
-from .agent import captcha, auth
+from .agent import captcha, auth, scout
 from .agent.goals import GOALS
 from .agent.tot_explorer import TreeOfThoughtExplorer
 from .court.exhibits import make_exhibit
@@ -78,10 +78,20 @@ def run_audit(case: dict) -> dict:
             findings.append(fd)
 
     try:
+        # 1. Pre-audit scout: extract fine-print policies if Tavily is available
+        policy_doc = scout.extract_policy_text(case["url"], log_fn=log)
+        if policy_doc:
+            case["policy_document"] = {"url": policy_doc.get("url"), "title": policy_doc.get("title")}
+            policy_fs = PD.audit_policy_clauses(policy_doc)
+            if policy_fs:
+                log(f"[scout] Detected {len(policy_fs)} dark pattern clause(s) in fine-print terms!")
+                add(policy_fs)
+
         with B.Browser() as br:
             for goal_key in case["goals"]:
                 goal = GOALS[goal_key]
-                log(f"Simulating user goal: {goal['label']}")
+                target_url = scout.discover_target_url(case["url"], goal_key, log_fn=log)
+                log(f"Simulating user goal: {goal['label']} (starting at: {target_url})")
 
                 def on_node(node, page):
                     # 1. Primary screenshot with Set-of-Marks visual badges (visible in UI & reports)
@@ -124,7 +134,7 @@ def run_audit(case: dict) -> dict:
                     node["findings"] = [f.pattern for f in fs]
                     add(fs)
 
-                ex = TreeOfThoughtExplorer(case["url"], goal_key, d, case.get("max_depth"), case.get("beam_width"),
+                ex = TreeOfThoughtExplorer(target_url, goal_key, d, case.get("max_depth"), case.get("beam_width"),
                                            case.get("branching"), log=log, on_node=on_node)
                 res = ex.run(br)
                 best = res["best_path"]

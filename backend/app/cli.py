@@ -32,7 +32,7 @@ def main():
         for s in j["steps"]:
             print(f"  Step {s['step']}: {s['testimony']}")
             for o in s["observations"]:
-                print(f"      ⚠ {o}")
+                print(f"      [!] {o}")
     print(f"\nReports: {case_dir(c['id']) / 'report.html'}\n         {case_dir(c['id']) / 'report.pdf'}")
 
 

@@ -34,12 +34,26 @@ def build_charges(findings: list[dict]) -> list[dict]:
         conf = round(1 - p_not, 2)
         sev = max(f["severity"] for f in fs)
         meta = PATTERNS.get(key, {})
+        authorities = [{"id": d["id"], "source": d["source"], "url": d["url"], "excerpt": d["text"]} for d in retrieve(key, k=3)]
+        try:
+            from ..agent import scout
+            if scout.is_tavily_available():
+                for p in scout.find_legal_precedents(key)[:2]:
+                    authorities.append({
+                        "id": "LIVE-PRECEDENT",
+                        "source": "Live Regulatory Precedent (Tavily)",
+                        "url": p.get("url", ""),
+                        "excerpt": f"{p.get('title')}: {p.get('summary')}",
+                    })
+        except Exception:
+            pass
+
         charges.append({
             "pattern": key, "name": pattern_name(key), "category": meta.get("category"), "india_ccpa": meta.get("india_ccpa"),
             "charge": meta.get("charge"), "confidence": conf, "severity": sev, "verdict": verdict_label(conf),
             "count": len(fs), "sources": sorted({f["source"] for f in fs}),
             "exhibits": fs[:4],
-            "authorities": [{"id": d["id"], "source": d["source"], "url": d["url"], "excerpt": d["text"]} for d in retrieve(key, k=3)],
+            "authorities": authorities,
         })
     order = {"GUILTY": 0, "LIKELY": 1, "INSUFFICIENT EVIDENCE": 2}
     charges.sort(key=lambda c: (order[c["verdict"]], -c["severity"] * c["confidence"]))
