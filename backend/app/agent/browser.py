@@ -66,6 +66,8 @@ class Browser:
             java_script_enabled=True,
             locale="en-US",
             timezone_id="Asia/Kolkata",
+            permissions=["geolocation"],
+            geolocation={"latitude": 12.9716, "longitude": 77.5946},
         )
         if config.STEALTH_ENABLED and STEALTH_AVAILABLE:
             try:
@@ -77,6 +79,11 @@ class Browser:
             window.chrome = window.chrome || { runtime: {} };
             Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']});
             Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]});
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition = (success) => {
+                    success({ coords: { latitude: 12.9716, longitude: 77.5946, accuracy: 20 } });
+                };
+            }
         """)
         self.context.set_default_timeout(config.NAV_TIMEOUT_MS)
         return self.context
@@ -115,7 +122,7 @@ class Browser:
             except Exception:
                 pass  # Best-effort — agent will still capture whatever loaded
         settle(page)
-        if config.AUTO_DISMISS_OVERLAYS and not url.startswith("file://"):
+        if config.AUTO_DISMISS_OVERLAYS and not (url.startswith("file://") or "127.0.0.1" in url or "localhost" in url):
             dismiss_initial_overlays(page)
         return page
 
@@ -159,6 +166,10 @@ def dismiss_initial_overlays(page: Page):
         "button:has-text('Not now')",
         "button:has-text('Later')",
         "button:has-text('Select later')",
+        "button:has-text('Confirm Location')",
+        "button:has-text('Use Current Location')",
+        "button:has-text('Use current location')",
+        "[data-testid*='close' i]",
     ]
     for sel in close_selectors:
         try:
@@ -251,23 +262,50 @@ def find_element(snap: dict, action: dict) -> dict | None:
             if el["tag"] == act_tag and (act_norm in el_norm or el_norm in act_norm):
                 return el
 
-    # 6. Fallback on href for links
+    # 6. Fallback on semantic icon tags (e.g. [Cart], [Close], [Search])
+    if act_norm.startswith("[") and act_norm.endswith("]"):
+        for el in snap["elements"]:
+            el_text = (el.get("text") or "").strip().lower()
+            if el_text == act_norm:
+                return el
+
+    # 7. Fallback on href for links (exact or pathname match)
     if act_href and act_tag == "a":
         for el in snap["elements"]:
             if el["tag"] == "a" and el.get("href") == act_href:
                 return el
+        # Match URL path ignoring query params
+        act_path = act_href.split("?")[0].split("#")[0].rstrip("/")
+        if act_path and len(act_path) > 3:
+            for el in snap["elements"]:
+                if el["tag"] == "a" and el.get("href"):
+                    el_path = el["href"].split("?")[0].split("#")[0].rstrip("/")
+                    if el_path == act_path:
+                        return el
 
     return None
 
 
-def perform(page: Page, el: dict):
+def perform(page: Page, el: dict, input_val: str = ""):
     loc = page.locator(f'[data-dpc-id="{el["id"]}"]').first
+    tag = (el.get("tag") or "").lower()
+    el_type = (el.get("type") or "").lower()
+
     try:
         loc.scroll_into_view_if_needed(timeout=2500)
-        loc.click(timeout=2000)
+        # If the target is a text/search input field, fill it and press Enter
+        if tag in ("input", "textarea") and el_type not in ("submit", "button", "checkbox", "radio", "hidden"):
+            val = input_val or ("560001" if "location" in (el.get("text") or "").lower() else "item")
+            loc.fill(val, timeout=2000)
+            loc.press("Enter")
+        else:
+            loc.click(timeout=2000)
     except Exception:
         try:
-            loc.evaluate("e => e.click()")
+            if tag in ("input", "textarea") and el_type not in ("submit", "button", "checkbox", "radio", "hidden"):
+                loc.evaluate(f"e => {{ e.value = '{input_val or 'test'}'; e.dispatchEvent(new Event('input', {{bubbles: true}})); }}")
+            else:
+                loc.evaluate("e => e.click()")
         except Exception:
             pass
     settle(page)
@@ -276,12 +314,25 @@ def perform(page: Page, el: dict):
 def replay(browser: Browser, start_url: str, actions: list[dict]) -> Page | None:
     # On live HTTP/HTTPS websites, add a brief polite pause to avoid triggering anti-bot 429 rate limits
     if start_url.startswith("http"):
-        time.sleep(1.2)
+        time.sleep(0.8)
     page = browser.open(start_url, reuse_context=True)
     for act in actions:
         snap = snapshot(page)
         el = find_element(snap, act)
         if not el:
+            # Brief retry after micro-scroll for dynamically hydrated elements
+            try:
+                page.evaluate("() => window.scrollBy(0, 40)")
+                page.wait_for_timeout(600)
+                snap = snapshot(page)
+                el = find_element(snap, act)
+            except Exception:
+                pass
+        if not el:
+            try:
+                page.close()
+            except Exception:
+                pass
             return None
         perform(page, el)
     return page

@@ -58,8 +58,8 @@ def _score(el: dict, goal: dict, snap: dict) -> tuple[float, str]:
 
 
 def _action(el: dict, vh: int) -> dict:
-    return {"id": el.get("id", ""), "tag": el["tag"], "text": el["text"], "href": el.get("href", ""), "bbox": el["bbox"],
-            "below_fold": el["bbox"]["y"] > vh}
+    return {"id": el.get("id", ""), "tag": el["tag"], "type": el.get("type", ""), "text": el["text"],
+            "href": el.get("href", ""), "bbox": el["bbox"], "below_fold": el["bbox"]["y"] > vh}
 
 
 class TreeOfThoughtExplorer:
