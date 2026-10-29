@@ -6,6 +6,7 @@ pydantic>=2.6
 Pillow>=10.0
 reportlab>=4.0
 openai>=1.0                 # OpenAI Python SDK — supports any OpenAI-compatible endpoint (Ollama, LLaVA, OpenRouter…)
+tavily-python>=0.3.0        # Tavily AI Search & Extraction for real-world scout reconnaissance
 # Optional: OCR pipeline (also install the Tesseract binary: apt install tesseract-ocr / brew install tesseract)
 pytesseract>=0.3.10
 # Dev / tests

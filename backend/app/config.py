@@ -45,6 +45,10 @@ LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.openai.com/v1")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
 LLM_ENABLED = bool(LLM_API_KEY) and os.getenv("DPC_DISABLE_LLM", "0") != "1"
 
+# Tavily Scout & Policy Extraction
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY", "")
+TAVILY_ENABLED = bool(TAVILY_API_KEY) and os.getenv("DPC_DISABLE_TAVILY", "0") != "1"
+
 # OCR
 OCR_ENABLED = os.getenv("DPC_DISABLE_OCR", "0") != "1"
 
